@@ -3,6 +3,7 @@ class Config(object):
     TESTING = False
 
     MONGO_DBNAME = 'que'
+    SECRET_KEY = 'Ewa bere ibere yin'
 
 
 class ProductionConfig(Config):
