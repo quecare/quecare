@@ -1,3 +1,14 @@
 flask
 flask-restful
 mongokat
+flask-login
+Flask-WTF
+flask-socketio
+eventlet
+gunicorn
+Flask-PyMongo
+passlib
+celery
+twilio>=3.3.6
+Flask-Mail
+socketIO-client
