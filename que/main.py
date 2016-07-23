@@ -2,11 +2,12 @@ from flask import render_template
 from flask_login import LoginManager
 
 from que import flask_app
-from apps import users
+from apps import users, appointments
 from apps.users.models import physicians
 
 
 flask_app.register_blueprint(users.users_app)
+flask_app.register_blueprint(appointments.appointment_app)
 
 login_manager = LoginManager()
 login_manager.init_app(flask_app)
