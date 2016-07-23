@@ -43,4 +43,4 @@ class PhysicianModel(UserMixin):
         except BadSignature:
             return False
         physician_data = PhysicianCollection(db.mongo.Physicians).find_by_id(data['id'])
-        return PhysicianModel(physician_data)
+        return physician_data
