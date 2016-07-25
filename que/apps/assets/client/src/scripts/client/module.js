@@ -5,7 +5,7 @@ queApp.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider
     $interpolateProvider.endSymbol(']]');
 
     function buildUrl(template) {
-        return '/static/templates/' + template + '.html';
+        return '/client/templates/' + template + '.html';
     }
 
     $urlRouterProvider.otherwise('/');

@@ -5,7 +5,7 @@ quePhysicianApp.config(function ($interpolateProvider, $stateProvider, $urlRoute
     $interpolateProvider.endSymbol(']]');
 
     function buildUrl(template) {
-        return '/static/templates/physician/' + template + '.html';
+        return '/client/templates/physician/' + template + '.html';
     }
 
     $urlRouterProvider.otherwise('/questions');
