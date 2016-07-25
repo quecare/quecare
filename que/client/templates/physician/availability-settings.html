@@ -1,0 +1,8 @@
+<md-content class="md-whiteframe-1dp" flex="100" flex-gt-xs="80" layout-margin layout-fill>
+    <md-list class="settings">
+        <md-list-item ng-repeat="setting in availabilitySettings"
+                ng-click="editSettings(ev, setting)">
+            <h4 class="day">[[ setting.day ]]</h4>
+        </md-list-item>
+    </md-list>
+</md-content>

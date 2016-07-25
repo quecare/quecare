@@ -1,0 +1,27 @@
+<md-dialog aria-label="Day availability settings" ng-cloak>
+    <form>
+        <md-list>
+            <md-subheader>Select days on [[ setting.day ]] you think you'll be most available.</md-subheader>
+            <div ng-show="errMsg">[[ errMsg ]]</div>
+            <md-list-item ng-repeat="hour in hours">
+                <p> [[ hour.title ]] </p>
+                <md-checkbox class="md-secondary" ng-checked="exists(hour.id)" ng-click="toggle(hour.id)"
+                            aria-label="Hour"></md-checkbox>
+            </md-list-item>
+            <md-list-item>
+                <p>repeat weekly <md-checkbox class="md-secondary" ng-model="setting.repeat_weekly"></md-checkbox></p>
+            </md-list-item>
+        </md-list>
+    </form>
+    <md-dialog-actions layout="row" layout-align=" end">
+        <md-button ng-click="cancel()" class="md-primary" aria-label="Cancel">
+            Cancel
+        </md-button>
+        <span flex></span>
+        <md-button ng-click="saveSetting()" aria-label="Save Settings"
+                   ng-disabled="saving || setting.hours.length == 0" class="md-primary md-raised" md-autofocus>
+            <span ng-if="!saving">Save Settings</span>
+            <span ng-if="saving">Saving...</span>
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

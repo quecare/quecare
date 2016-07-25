@@ -1,0 +1,64 @@
+<md-content layout-gt-xs="row" layout-xs="column" layout-align-gt-xs="center start" layout-fill>
+    <form name="consultationForm" flex="100" flex-gt-xs="50" layout="column" layout-fill>
+        <div layout-padding>
+            <md-input-container class="md-block">
+                <label>Full Name</label>
+                <input type="text" id="full-name" name="fullName" ng-model="consultation.fullname" ng-required="true" />
+                <div ng-messages="consultationForm.fullname.$error">
+                    <div ng-message="required">
+                        Your full name is required.
+                    </div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Email</label>
+                <input type="email" id="email" name="email" ng-model="consultation.email" ng-required="true" />
+                <div ng-messages="consultationForm.email.$error">
+                    <div ng-message="required">
+                        Your email is required.
+                    </div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Phone Number</label>
+                <input type="text" id="phone-number" name="phoneNumber" ng-model="consultation.phone_number"
+                       ng-required="true" />
+                <div ng-messages="consultationForm.phoneNumber.$error">
+                    <div ng-message="required">
+                        Your phone number is required.
+                    </div>
+                </div>
+            </md-input-container>
+        </div>
+        <md-divider></md-divider>
+        <div layout-padding>
+            <h4>New Video Appointment</h4>
+            <div class="appointment-datetime-container">
+                <md-radio-group ng-model="consultation.hour" name="appointmentTime" ng-required="true">
+                    <div ng-repeat="time in todayTime.hours">
+                        <div class="appointment-item" layout="row" layout-align="space-between center">
+                            <span class="date-text">
+                                <strong>[[ time.start_time | date ]]</strong>
+                            </span>
+                            <span class="time">
+                                [[ time.title ]]
+                            </span>
+                            <md-radio-button ng-value="time.id" aria-label="[[ time.title ]]" ng-required="true">
+                            </md-radio-button>
+                        </div>
+                        <md-divider></md-divider>
+                    </div>
+                    <div ng-if="todayTime.hours.length == 0">No more time today.</div>
+                </md-radio-group>
+            </div>
+        </div>
+        <br />
+        <div layout-padding layout-margin layout="row" layout-align="end center">
+            <md-button class="md-primary md-raised" ng-disabled="consultationForm.$invalid || setting"
+                       ng-click="addVideoConsults()">
+                <span ng-show="!setting">Set Appointment</span>
+                <span ng-show="setting">Setting...</span>
+            </md-button>
+        </div>
+    </form>
+</md-content>

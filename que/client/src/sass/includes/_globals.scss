@@ -1,0 +1,44 @@
+.text-center {
+    text-align: center;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+[ng-cloak] {
+    display: none;
+}
+
+.img-responsive {
+    max-width: 100%;
+}
+
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-top: 4px solid\9;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+
+.button-group {
+    .md-button:first-child {
+        @include top-left-radius(3px);
+        @include bottom-left-radius(3px);
+    }
+
+    .md-button:last-child {
+        @include top-right-radius(3px);
+        @include bottom-right-radius(3px);
+    }
+
+    .md-button {
+        @include border-radius(0);
+    }
+}

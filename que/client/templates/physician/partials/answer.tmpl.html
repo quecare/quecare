@@ -1,0 +1,37 @@
+<md-dialog aria-label="Question Answer Form" class="dialog">
+    <form ng-cloak name="answerForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                [[ question.fullname ]]
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <p class="date-asked">Asked [[ question.date_asked | date ]]</p>
+                <p>[[ question.question ]]</p>
+                <div class="answers" layout-padding>
+                    <div ng-repeat="answer in answers.$object">
+                        <div class="date-answered">[[ answer.date_answered | date ]]</div>
+                        <div class="answer">[[ answer.answer ]]</div>
+                        <md-divider></md-divider>
+                    </div>
+                </div>
+                <div class="md-subhead">Add Answer</div>
+                <md-input-container class="md-block">
+                    <label>Answer</label>
+                    <textarea ng-model="answer.answer" name="answer" ng-required="true"></textarea>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button class="md-primary" ng-click="cancel()">
+                Cancel
+            </md-button>
+            <span flex></span>
+            <md-button class="md-primary md-raised" ng-disabled="answerForm.$invalid" ng-click="answerQuestion()">
+                <span ng-show="!saving">Answer</span>
+                <span ng-show="saving">Saving...</span>
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

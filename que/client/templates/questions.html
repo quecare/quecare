@@ -1,0 +1,49 @@
+<md-content layout-gt-xs="row" layout-xs="column" layout-align-gt-xs="center start" layout-padding layout-fill>
+    <form name="questionForm" flex="100" flex-gt-xs="50" layout="column" layout-fill>
+        <div class="form-inputs">
+            <md-input-container class="md-block">
+                <label>Full name</label>
+                <input type="text" id="full-name" name="fullName" ng-model="question.fullname" ng-required="true"/>
+                <div ng-messages="questionForm.fullName.$error" role="alert">
+                    <div ng-message="required">
+                        Your fullname is required.
+                    </div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Phone Number</label>
+                <input type="text" id="phone-number" name="phoneNumber" ng-model="question.phone_number" ng-required="true" />
+                <div ng-messages="questionForm.phoneNumber.$error" role="alert">
+                    <div ng-message="required">
+                        Your phone number is required.
+                    </div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Email</label>
+                <input type="email" id="email" name="email" ng-model="question.email" ng-required="true" />
+                <div ng-messages="questionForm.email.$error" role="alert">
+                    <div ng-message="required">
+                        Your email is required.
+                    </div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Your question</label>
+                <textarea id="question" name="question" ng-model="question.question" ng-required="true"></textarea>
+                <div ng-messages="questionForm.question.$error" role="alert">
+                    <div ng-message="required">
+                        Your question is required.
+                    </div>
+                </div>
+            </md-input-container>
+        </div>
+        <div layout="row" layout-align="end end" flex>
+            <md-button class="md-primary md-raised" ng-disabled="asking || questionForm.$invalid"
+                ng-click="askQuestion()">
+                <span ng-show="!asking">Ask</span>
+                <span ng-show="asking">Asking...</span>
+            </md-button>
+        </div>
+    </form>
+</md-content>

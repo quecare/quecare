@@ -1,0 +1,42 @@
+<md-content layout-gt-xs="row" layout-xs="column" layout-padding layout-align="center center">
+    <div flex-gt-xs="40"></div>
+    <div flex="80">
+        <div class="profile-info-container text-center">
+            <div class="profile-pic-container" layout="row" layout-margin layout-align="center center">
+                <div class="pic-wrapper">
+                    <img src="/static/images/jide.jpg" class="img-responsive"/>
+                </div>
+            </div>
+            <div class="physician-name-qualification">
+                <div class="name md-headline md-primary">Dr. O, Obasan</div>
+                <div class="qualification">SENIOR REGISTRAR, OBS & GYN</div>
+            </div>
+            <div class="physician-bio">
+                <p class="text-center">
+                    Some professional bio details goes in here, I mean this is where
+                    the doctor decides to give a professional summary in a, you know,
+                    fairly brief and straight forward fashion.
+                </p>
+            </div>
+        </div>
+        <div class="ask-question-btn-cont" layout="row" layout-align="center center">
+            <md-button class="md-primary md-raised" aria-label="Ask a question" ui-sref="questions">
+                ASK ME A QUESTION
+            </md-button>
+            <md-menu>
+                <md-button class="md-primary md-raised" aria-label="Perform other questions"
+                           ng-click="$mdOpenMenu($event)">
+                    <span class="caret"></span>
+                </md-button>
+                <md-menu-content width="4">
+                    <md-menu-item>
+                        <md-button ui-sref="consultations">
+                            New Consultation
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </div>
+    </div>
+    <div flex-gt-xs="40"></div>
+</md-content>

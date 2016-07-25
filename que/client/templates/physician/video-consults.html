@@ -1,0 +1,13 @@
+<md-content class="md-whiteframe-1dp" flex="100" flex-gt-xs="80" layout-margin layout-fill>
+    <md-list ng-cloak>
+        <span ng-repeat="consult in videoConsults">
+            <md-list-item ui-sref="video({roomName: consult.room_name})">
+                <p>[[ consult.fullname ]]</p>
+                <p>[[ consult.email ]]</p>
+                <span>[[ consult.date_chosen | date ]]</span>
+            </md-list-item>
+            <md-divider></md-divider>
+        </span>
+    </md-list>
+    <div layout="column"></div>
+</md-content>
