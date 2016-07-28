@@ -34,6 +34,7 @@ function processScripts (dir) {
 }
 gulp.task('clientScripts', processScripts('client'));
 gulp.task('physicianScripts', processScripts('physician'));
+gulp.task('thirdPartyScripts', processScripts('third-party'));
 
 gulp.task('test', function (done) {
   new Server({
@@ -52,6 +53,7 @@ gulp.task('process', function () {
     gulp.watch('src/sass/**/*.scss', ['styles']);
     gulp.watch(['src/scripts/*.js', 'src/scripts/client/**/*.js'], ['clientScripts']);
     gulp.watch(['src/scripts/*.js', 'src/scripts/physician/**/*.js'], ['physicianScripts']);
+    gulp.watch(['src/scripts/third-party/**/*.js'], ['thirdPartyScripts']);
     gulp.watch('test/**/*.js', ['tdd']);
 });
 
