@@ -1,6 +1,9 @@
-var quePhysicianApp = angular.module('QuePhysician', ['ngMaterial', 'ngMessages', 'ui.router', 'ngMdIcons',
-                                                      'restangular', 'QueDirectives']);
-quePhysicianApp.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider, RestangularProvider) {
+var quePhysicianApp = angular.module('QuePhysician', ['ngMessages', 'ui.router', 'restangular', 'QueDirectives', 'sidebar']);
+
+quePhysicianApp.config(function ($provide, $interpolateProvider, $stateProvider, $urlRouterProvider, RestangularProvider) {
+    var physician = angular.copy(window.physician);
+    $provide.constant('Physician', physician);
+
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
 
@@ -8,32 +11,18 @@ quePhysicianApp.config(function ($interpolateProvider, $stateProvider, $urlRoute
         return '/client/templates/physician/' + template + '.html';
     }
 
-    $urlRouterProvider.otherwise('/questions');
+    $urlRouterProvider.otherwise('/discussions');
 
     $stateProvider
-        .state('data', {
-            abstract: true,
-            template: '<ui-view flex layout="row" layout-align="center start" layout-fill/>'
+        .state('discussions', {
+            url: '/discussions',
+            templateUrl: buildUrl('discussions'),
+            controller: 'DiscussionCtrl',
         })
-        .state('data.questions', {
-            url: '/questions',
-            templateUrl: buildUrl('questions'),
-            controller: 'QuestionsCtrl',
-            resolve: {
-                AllQuestions: function (Questions) {
-                    return Questions.getList();
-                }
-            }
-        })
-        .state('data.videoConsults', {
-            url: '/video-consults',
+        .state('appointments', {
+            url: '/appointments',
             templateUrl: buildUrl('video-consults'),
             controller: 'VideoConsultsCtrl',
-            resolve: {
-                AllVideoConsults: function (VideoConsults) {
-                    return VideoConsults.getList();
-                }
-            }
         })
         .state('availabilitySettings', {
             url: '/availability-settings',
@@ -42,11 +31,6 @@ quePhysicianApp.config(function ($interpolateProvider, $stateProvider, $urlRoute
             data: {
                 title: 'Availability Settings'
             },
-            resolve: {
-                AllHours: function (Hours) {
-                    return Hours.getList();
-                }
-            }
         })
         .state('video', {
             url: '/video/:roomName',
@@ -54,6 +38,7 @@ quePhysicianApp.config(function ($interpolateProvider, $stateProvider, $urlRoute
             controller: 'VideoCtrl'
         });
 
+    RestangularProvider.setDefaultHeaders({'auth-token': document.getElementById('_tA').innerHTML});
     RestangularProvider.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
         if (data.data) {
             return data.data;
