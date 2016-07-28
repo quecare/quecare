@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Index</title>
-</head>
-<body>
-    <h1>Index Page</h1>
+{% extends "includes/layout.html" %}
+{% block content %}
+<body ng-cloak ng-app="Que" ng-controller="MainCtrl" layout="column" layout-fill>
+    <md-toolbar class="sitenav">
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="Menu" ng-if="pageTitle == 'Menu'">
+                <ng-md-icon icon="menu" style="fill: white"></ng-md-icon>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="Back" ng-if="pageTitle != 'Menu'" ui-sref="home">
+                <ng-md-icon icon="arrow_back" style="fill: white"></ng-md-icon>
+            </md-button>
+            <h2>
+                <span>[[ pageTitle ]]</span>
+            </h2>
+        </div>
+    </md-toolbar>
+    <div ui-view layout="column" layout-fill class="main-container"></div>
 </body>
-</html>
+{% endblock %}

@@ -3,48 +3,11 @@
     <link rel="stylesheet" href="/client/css/physician.css" />
 {% endblock %}
 {% block content %}
-<body ng-cloak ng-app="QuePhysician" ng-controller="MainCtrl" layout="row" layout-fill>
-    <md-sidenav class="site-sidebar md-sidenav-left" md-component-id="left"
-            md-is-locked-open="$mdMedia('gt-md')" md-disable-backdrop
-            md-whiteframe="4">
-        <md-toolbar class="md-tall" layout-padding layout="row" layout-align="center center">
-            <div class="profile-pic-container" flex="40">
-                <img src="/static/images/jide.jpg" class="img-responsive"/>
-            </div>
-        </md-toolbar>
-        <md-content flex role="navigation">
-            <ul class="que-menu">
-                <li>
-                    <h2 class="menu-heading md-subhead">Questions & Consults</h2>
-                    <md-divider></md-divider>
-                    <ul class="sub-menu">
-                        <li ui-sref-active="active">
-                            <a ui-sref="data.questions" class="md-button">Questions</a>
-                        </li>
-                        <li ui-sref-active="active">
-                            <a ui-sref="data.videoConsults" class="md-button">Video Consults</a>
-                        </li>
-                    </ul>
-                </li>
-                <md-divider></md-divider>
-                <li ui-sref-active="active">
-                    <a ui-sref="availabilitySettings" class="md-button">Availability Settings</a>
-                </li>
-            </ul>
-        </md-content>
-    </md-sidenav>
-    <div layout="column" flex layout-fill>
-        <md-toolbar layout="column" class="md-whiteframe-2dp sitenav">
-            <div class="md-toolbar-tools" flex="100" flex-gt-xs="80">
-                <md-button class="md-icon-button" hide-gt-md aria-label="Menu" ng-click="toggleSideNav()">
-                    <ng-md-icon icon="menu" style="fill: white"></ng-md-icon>
-                </md-button>
-                <h2><span>[[ pageTitle ]]</span></h2>
-            </div>
-        </md-toolbar>
-        <div ui-view flex layout="row" layout-align="center start" layout-fill class="main-container"></div>
-    </div>
-</body>
+<h1>{{ physician.fullname }}</h1>
+<p>{{ physician.email }}</p>
+<p>{{ physician.bio }}</p>
+
+
 {% endblock %}
 
 {% block js %}

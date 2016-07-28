@@ -1,10 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
-</head>
-<body>
+{% extends "includes/layout.html" %}
 
-</body>
-</html>
+{% block pageTitle %}Dashboard{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('assets.static', filename='css/dashboard.css') }}" />
+{% endblock %}
+
+{% block header %}
+<div ng-app="QuePhysician" ng-controller="MainCtrl">
+    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+        <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout-title">Home</span>
+                <div class="mdl-layout-spacer"></div>
+                <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
+                    <i class="material-icons">more_vert</i>
+                </button>
+                <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
+                    <li class="mdl-menu__item">Settings</li>
+                    <li class="mdl-menu__item">Logout</li>
+                </ul>
+            </div>
+        </header>
+        <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+            <header class="demo-drawer-header">
+                <img src="images/user.jpg" class="demo-avatar">
+                <div class="demo-avatar-dropdown">
+                    <span>{{ current_user.fullname }}</span>
+                    <div class="mdl-layout-spacer"></div>
+                </div>
+            </header>
+            <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+                <a class="mdl-navigation__link" ui-sref="discussions">Discussions</a>
+                <a class="mdl-navigation__link" ui-sref="availabilitySettings">Availability settings</a>
+                <a class="mdl-navigation__link" ui-sref="appointments">Appointments</a>
+            </nav>
+        </div>
+        {% endblock %}
+
+        {% block content %}
+        <main ui-view class="mdl-layout__content mdl-color--grey-100"></main>
+    </div>
+</div>
+<i style="display: none;" id="_tA">{{ current_user.generate_auth_token() }}</i>
+{% endblock %}
+
+{% block morejs %}
+<script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/angular/angular.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/material-design-lite/material.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/angular-messages/angular-messages.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/angular-ui-router/release/angular-ui-router.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/underscore/underscore-min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/restangular/src/restangular.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/moment/moment.js') }}"></script>
+<!--<script type="text/javascript" src="//developer.appear.in/scripts/appearin-sdk.0.0.4.min.js"></script>-->
+<script type="text/javascript" src="{{ url_for('assets.static', filename='js/third-party.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('assets.static', filename='js/physician.js') }}"></script>
+<script type="text/javascript">
+    var physician = {
+        id: '{{ current_user.id }}',
+        username: '{{ current_user.username }}',
+        fullname: '{{ current_user.fullname }}',
+        bio: '{{ current_user.bio }}'
+    }
+</script>
+{% endblock %}
