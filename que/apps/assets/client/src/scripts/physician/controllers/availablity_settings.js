@@ -1,5 +1,10 @@
 quePhysicianApp.controller('AvailabilitySettingCtrl',
-function ($scope, AllHours, AvailabilitySettings, $mdDialog, $mdMedia) {
+function ($scope, Hours, AvailabilitySettings) {
+    Hours.getList()
+    .then(function (response) {
+        $scope.hours = response;
+    });
+
     AvailabilitySettings.getList().then(function (response) {
 
         if (response.length < 7) {
@@ -72,16 +77,5 @@ function ($scope, AllHours, AvailabilitySettings, $mdDialog, $mdMedia) {
     }
 
     $scope.editSettings = function (ev, setting) {
-        console.log(setting);
-        var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
-        $mdDialog.show({
-            controller: DialogCtrl,
-            templateUrl: '/static/templates/physician/partials/day.settings.tmpl.html',
-            parent: angular.element(document.body),
-            targetEvent: ev,
-            locals: {setting: setting, hours: AllHours, saveSetting: $scope.saveSetting},
-            clickOutsideToClose: false,
-            fullscreen: useFullScreen
-        })
     };
 });
