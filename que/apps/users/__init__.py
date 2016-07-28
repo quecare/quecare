@@ -1,5 +1,5 @@
 from flask import Blueprint, request, render_template, redirect, url_for, jsonify
-from flask_login import login_user, login_required, current_user
+from flask_login import login_user, login_required, current_user, logout_user
 from passlib.apps import custom_app_context as pwd_context
 
 import forms
@@ -25,6 +25,8 @@ def register_physician():
 
 @users_app.route('/login', methods=['GET', 'POST'])
 def login_physician():
+    if current_user.is_authenticated:
+        return redirect(url_for('.dashboard'))
     login_form = forms.UserLoginForm(csrf_enabled=False)
     if request.method == 'POST' and login_form.validate():
         login_user(physicians.PhysicianModel(login_form.physician))
@@ -44,3 +46,10 @@ def get_auth_token():
 @login_required
 def dashboard():
     return render_template('dashboard.html')
+
+
+@users_app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('.login_physician'))
