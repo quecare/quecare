@@ -1,13 +1,17 @@
-<md-content class="md-whiteframe-1dp" flex="100" flex-gt-xs="80" layout-margin layout-fill>
-    <md-list ng-cloak>
-        <span ng-repeat="consult in videoConsults">
-            <md-list-item ui-sref="video({roomName: consult.room_name})">
-                <p>[[ consult.fullname ]]</p>
-                <p>[[ consult.email ]]</p>
-                <span>[[ consult.date_chosen | date ]]</span>
-            </md-list-item>
-            <md-divider></md-divider>
-        </span>
-    </md-list>
-    <div layout="column"></div>
-</md-content>
+<div class="mdl-grid" ng-init="getConsults()">
+    <div class="mdl-cell mdl-cell--2-col"></div>
+    <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--8-col">
+        <table class="mdl-data-table mdl-js-data-table">
+            <tbody>
+                <tr ng-repeat="consult in videoConsults">
+                    <td class="mdl-data-table__cell--non-numeric">[[ consult.fullname ]]</td>
+                    <td class="mdl-data-table__cell--non-numeric">[[ consult.email ]]</td>
+                    <td class="mdl-data-table__cell--non-numeric">[[ consult.date_chosen | date ]]</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-center mdl-cell mdl-cell--12-col">
+            <h4 ng-if="videoConsults.length == 0">No video appointments yet.</h4>
+        </div>
+    </div>
+</div>

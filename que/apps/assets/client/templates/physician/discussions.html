@@ -1,16 +1,19 @@
-<div class="card" ng-init="getQuestions()">
-    <ul class="questions">
-        <li ng-repeat="question in questions" ng-click="viewDiscussion(ev, discussion)">
-            <p> [[ question.fullname ]] </p>
-            <p> [[ question.question ]] </p>
-            <p> [[ question.date_asked | date ]] </p>
-        </li>
-    </ul>
-    <div class="text-center">
-        <h4 ng-if="questionGetErr">[[ questionsGetErr ]]</h4>
-        <h4 ng-if="questions.length == 0">No questions for now.</h4>
-    </div>
-    <div class="progress-container text-center" ng-show="gettingDiscussions">
-        <i class="fa fa-spinner fa-spin fa-2x"></i>
+<div class="mdl-grid" ng-init="getQuestions()">
+    <div class="mdl-cell mdl-cell--2-col"></div>
+    <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--8-col mdl-grid">
+        <ul class="questions">
+            <li ng-repeat="question in questions" ng-click="viewDiscussion(ev, discussion)">
+                <p> [[ question.fullname ]] </p>
+                <p> [[ question.question ]] </p>
+                <p> [[ question.date_asked | date ]] </p>
+            </li>
+        </ul>
+        <div class="text-center mdl-cell mdl-cell--12-col">
+            <h4 ng-if="questionGetErr">[[ questionsGetErr ]]</h4>
+            <h4 ng-if="questions.length == 0">No questions for now.</h4>
+        </div>
+        <div class="progress-container text-center" ng-show="gettingDiscussions">
+            <i class="fa fa-spinner fa-spin fa-2x"></i>
+        </div>
     </div>
 </div>
