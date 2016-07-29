@@ -1,0 +1,27 @@
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--2-col"></div>
+    <div class="mdl-cell mdl-cell--8-col">
+        <ui-view>
+            <div class="profile-pic-area">
+                <img id="filephoto" ng-src="[[ current_user.profile_pic ]]" alt="[[ current_user.fullname ]]" />
+                <input type="file" name="file" id="file" accept="image/*" class="manual-file-chooser"/>
+            </div>
+            <div class="mdl-color--white mdl-shadow--2dp">
+                <div class="settings-nav-area">
+                    <ul class="settings-nav mdl-list">
+                        <li class="mdl-list__item">
+                            <a ui-sref="settings.profile">
+                                <span class="mdl-list__item-primary-content">Profile</span>
+                            </a>
+                        </li>
+                        <li class="mdl-list__item">
+                            <a ui-sref="settings.password">
+                                <span class="mdl-list__item-primary-content">Password</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </ui-view>
+    </div>
+</div>
