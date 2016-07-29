@@ -32,6 +32,21 @@ quePhysicianApp.config(function ($provide, $interpolateProvider, $stateProvider,
                 title: 'Availability Settings'
             },
         })
+        .state('settings', {
+            url: '/settings',
+            templateUrl: buildUrl('settings'),
+            controller: 'SettingsCtrl'
+        })
+        .state('settings.profile', {
+            url: '/profile',
+            templateUrl: buildUrl('profile'),
+            controller: 'ProfileCtrl'
+        })
+        .state('settings.password', {
+            url: '/password',
+            templateUrl: buildUrl('password'),
+            controller: 'PasswordCtrl'
+        })
         .state('video', {
             url: '/video/:roomName',
             templateUrl: '/static/templates/video.html',
