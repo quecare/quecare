@@ -1,5 +1,5 @@
 @import '_bootstrap';
-@import 'mdl/material-design-lite';
+@import '_font-awesome';
 
 ul {
     padding: 0;
@@ -9,4 +9,19 @@ ul {
 
 .text-center {
     text-align: center;
+}
+
+.content {
+    box-shadow: 0 1px 1px rgba(0,0,0,.05)
+}
+
+.saving-toast {
+    position: absolute;
+    top: 81px;
+    right: 15px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px 15px;
 }
