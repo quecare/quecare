@@ -11,7 +11,8 @@ from que.apps.appointments.models import availability_settings
 from que.apps.appointments.models import video_consults
 
 availability_setting_fields = {'id': extra_fields.ObjectIdStr(attribute='_id'), 'day': fields.String,
-                               'hours': fields.List(fields.String), 'repeat_weekly': fields.Boolean,
+                               'hours': fields.List(fields.String, default=[]),
+                               'repeat_weekly': fields.Boolean(default=False),
                                'date_added': fields.DateTime, 'date_last_modified': fields.DateTime}
 
 hours_fields = {'id': extra_fields.ObjectIdStr(attribute='_id'), 'title': fields.String, 'start_time': fields.DateTime,
