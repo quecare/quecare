@@ -3,7 +3,7 @@ from flask_login import login_user, login_required, current_user, logout_user
 from passlib.apps import custom_app_context as pwd_context
 
 import forms
-from que import db
+from que import db, utils, background_tasks
 from que.apps.users.models import physicians
 
 users_app = Blueprint('users', __name__)
@@ -16,7 +16,11 @@ def register_physician():
         physician_data = registration_form.data
         physician_data['password'] = pwd_context.encrypt(registration_form.password.data)
         physicians_model = physicians.PhysicianCollection(db.mongo.Physicians)
-        physician_data['_id'] = physicians_model.insert(physician_data)
+        current_date = utils.get_date()
+        physician_data['date_registered'] = physician_data['date_updated'] = current_date
+        physician_data['_id'] = physician_id = physicians_model.insert(physician_data)
+
+        background_tasks.create_availability_settings.delay(str(physician_id))
 
         login_user(physicians.PhysicianModel(physician_data))
         return redirect(url_for('.dashboard'))
