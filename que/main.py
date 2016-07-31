@@ -13,7 +13,7 @@ flask_app.register_blueprint(assets.assets_app)
 
 login_manager = LoginManager()
 login_manager.init_app(flask_app)
-login_manager.login_view = 'login'
+login_manager.login_view = 'users.login_physician'
 login_manager.login_message = 'Please login to access page'
 
 
