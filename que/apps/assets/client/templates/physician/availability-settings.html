@@ -1,41 +1,55 @@
-<div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--2-col"></div>
-    <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--8-col">
-        <div class="availability-settings mdl-cell mdl-cell--12-col" id="accordion" role="tablist"
-             aria-multiselectable="true">
-            <div class="mdl-cell mdl-cell--12-col" ng-repeat="setting in availabilitySettings">
-                <div class="mdl-cell mdl-cell" role="tab" id="heading[[ setting.day ]]">
-                    <h6>
-                        <a role="button" data-toggle="collapse" data-parent="#accordion" data-target="#[[ setting.day ]]"
-                           aria-expanded="false" aria-controls="[[ setting.day ]]">
-                            [[ setting.day ]]
-                        </a>
-                    </h6>
-                </div>
-                <div id="[[ setting.day ]]" class="collapse" role="tabpanel" aria-labelledby="heading[[ setting.day ]]">
-                    <p>Select times on [[ setting.day ]] you think you'll be most available.</p>
-                    <ul class="mdl-list">
-                        <li class="mdl-list__item" ng-repeat="hour in hours">
-                            <span class="mdl-list__item-primary-content">[[ hour.title ]]</span>
-                            <span class="mdl-list__item-secondary-action">
-                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="[[ setting.day ]][[ hour.id ]]">
-                                    <input type="checkbox" id="[[ setting.day ]][[ hour.id ]]" class="mdl-checkbox__input"
-                                           ng-checked="exists(hour.id)" ng-click="toggle(hour.id)" />
-                                </label>
-                            </span>
-                        </li>
-                        <li class="mdl-list__item">
-                            <span class="mdl-list__item-primary-content">repeat weekly</span>
-                            <span class="mdl-list__item-secondary-action">
-                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="repeatWeekly[[$index]]">
-                                     <input type="checkbox" id="repeatWeekly[[$index]]" class="mdl-checkbox__input"
-                                        ng-checked="" ng-click="" />
-                                </label>
-                            </span>
-                        </li>
-                    </ul>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="alert alert-danger">
+            	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            	<strong>Error!</strong> [[ saveSettingError ]]
+            </div>
+            <div class="availability-settings content">
+                <loading class="text-center" ng-show="gettingSettings"></loading>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"
+                        on-event="shown.bs.collapse" callback="getHours()">
+                    <div class="panel" ng-repeat="setting in availabilitySettings">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" data-target="#[[ setting.day ]]"
+                                   aria-expanded="false" aria-controls="[[ setting.day ]]">
+                                    <span class="pull-left">[[ setting.day ]]</span>
+                                <span class="pull-right">
+                                    <i class="fa fa-chevron-down"></i>
+                                </span>
+                                    <div class="clearfix"></div>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="[[ setting.day ]]" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                <p>Select times on [[ setting.day ]] you think you'll be most available.</p>
+                                <loading class="text-center" ng-show="gettingHours"></loading>
+                                <ul class="list-group">
+                                    <li ng-repeat="hour in hours" class="list-group-item">
+                                        <label for="[[ setting.day ]][[ hour.id ]]">
+                                            <span class="pull-left">[[ hour.title ]]</span>
+                                            <input type="checkbox" id="[[ setting.day ]][[ hour.id ]]"
+                                                   ng-checked="exists(setting, hour.id)"
+                                                   ng-click="toggleHour(setting, hour.id)" class="pull-right" />
+                                            <div class="clearfix"></div>
+                                        </label>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <label for="repeatWeekly[[ $index ]]">
+                                            Repeat weekly
+                                            <input type="checkbox" id="repeatWeekly[[ $index ]]" ng-checked=""
+                                                   ng-click="toggleRepeatWeekly(setting)" />
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<saving-toast ng-show="savingSettings"></saving-toast>
