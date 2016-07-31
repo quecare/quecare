@@ -3,61 +3,48 @@
 {% block pageTitle %}Dashboard{% endblock %}
 
 {% block css %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="{{ url_for('assets.static', filename='css/dashboard.css') }}" />
 {% endblock %}
 
 {% block header %}
 <div ng-app="QuePhysician" ng-controller="MainCtrl">
-    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-        <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
-            <div class="mdl-layout__header-row">
-                <span class="mdl-layout-title">Home</span>
-                <div class="mdl-layout-spacer"></div>
-                <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
-                    <i class="material-icons">more_vert</i>
-                </button>
-                <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
-                    <li class="mdl-menu__item">
-                        <a ui-sref="settings">Settings</a>
-                    </li>
-                    <li class="mdl-menu__item">
-                        <a href="/logout">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </header>
-        <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
-            <header class="demo-drawer-header">
-                <img src="images/user.jpg" class="demo-avatar">
-                <div class="demo-avatar-dropdown">
-                    <span>{{ current_user.fullname }}</span>
-                    <div class="mdl-layout-spacer"></div>
-                </div>
-            </header>
-            <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-                <a class="mdl-navigation__link" ui-sref="discussions">Discussions</a>
-                <a class="mdl-navigation__link" ui-sref="availabilitySettings">Availability settings</a>
-                <a class="mdl-navigation__link" ui-sref="appointments">Appointments</a>
-            </nav>
-        </div>
-        {% endblock %}
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Brand</a>
+			</div>
 
-        {% block content %}
-        <main ui-view class="mdl-layout__content mdl-color--grey-100"></main>
-    </div>
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li ui-sref-active="active"><a ui-sref="availabilitySettings">Availability Settings</a></li>
+					<li ui-sref-active="active"><a ui-sref="discussions">Discussions</a></li>
+					<li ui-sref-active="active"><a ui-sref="videoConsults">Video Consults</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	{% endblock %}
+
+	{% block content %}
+	<div ui-view></div>
 </div>
 <i style="display: none;" id="_tA">{{ current_user.generate_auth_token() }}</i>
 {% endblock %}
 
 {% block morejs %}
 <script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/angular/angular.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/material-design-lite/material.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/angular-messages/angular-messages.min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/angular-ui-router/release/angular-ui-router.min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/underscore/underscore-min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/restangular/src/restangular.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/moment/moment.js') }}"></script>
-<!--<script type="text/javascript" src="//developer.appear.in/scripts/appearin-sdk.0.0.4.min.js"></script>-->
 <script type="text/javascript" src="{{ url_for('assets.static', filename='js/third-party.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('assets.static', filename='js/physician.js') }}"></script>
 <script type="text/javascript">
