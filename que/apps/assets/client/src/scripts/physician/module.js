@@ -1,4 +1,5 @@
-var quePhysicianApp = angular.module('QuePhysician', ['ngMessages', 'ui.router', 'restangular', 'QueDirectives', 'sidebar']);
+var quePhysicianApp = angular.module('QuePhysician', ['ngMessages', 'ui.router', 'restangular', 'QueDirectives']);
+
 
 quePhysicianApp.config(function ($provide, $interpolateProvider, $stateProvider, $urlRouterProvider, RestangularProvider) {
     var physician = angular.copy(window.physician);
@@ -19,8 +20,8 @@ quePhysicianApp.config(function ($provide, $interpolateProvider, $stateProvider,
             templateUrl: buildUrl('discussions'),
             controller: 'DiscussionCtrl',
         })
-        .state('appointments', {
-            url: '/appointments',
+        .state('videoConsults', {
+            url: '/video-consults',
             templateUrl: buildUrl('video-consults'),
             controller: 'VideoConsultsCtrl',
         })
@@ -53,7 +54,8 @@ quePhysicianApp.config(function ($provide, $interpolateProvider, $stateProvider,
             controller: 'VideoCtrl'
         });
 
-    RestangularProvider.setDefaultHeaders({'auth-token': document.getElementById('_tA').innerHTML});
+    var tokenEle = document.getElementById('_tA')
+    RestangularProvider.setDefaultHeaders({'auth-token': tokenEle && tokenEle.innerHTML});
     RestangularProvider.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
         if (data.data) {
             return data.data;
