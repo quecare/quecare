@@ -2,20 +2,22 @@
 
 {% block content %}
 {% from "includes/_formhelpers.html" import render_field %}
-<div class="container">
+<div class="container" ng-init="getQuestions()">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <h1>Login</h1>
-            <form id="loginForm" role="form" name="loginForm" action="{{ url_for('users.login_physician') }}" method="POST">
-                {% for field in form %}
-                {{ render_field(field, class="form-control") }}
-                {% endfor %}
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary btn-lg">
-                        Login
-                    </button>
-                </div>
-            </form>
+        <div class="col-md-4 col-md-offset-4">
+            <div class="card">
+                <form id="loginForm" role="form" name="loginForm" action="{{ url_for('users.login_physician') }}" method="POST">
+                    <h4>Login</h4>
+                    {% for field in form %}
+                    {{ render_field(field, class="form-control") }}
+                    {% endfor %}
+                    <div class="text-center">
+                        <button class="btn btn-primary">
+                            Login
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

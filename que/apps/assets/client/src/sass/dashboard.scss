@@ -1,14 +1,35 @@
 @import 'includes/_globals';
 @import 'includes/que/_settings';
-
+@import 'includes/que/_questions';
 
 body {
     padding-top: 81px;
+    padding-bottom: 40px;
     background-color: rgba(0, 0, 0, .03);
 }
 
 .navbar-default {
-    background-color: white;
+    .more-nav {
+        >a {
+            padding-top: 13px;
+        }
+
+        img {
+            background-color: #efefef;
+            /* margin-top: 5px; */
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 1px solid #00C8FF;
+        }
+    }
+
+    .app-nav {
+        a >.fa {
+            margin-right: 5px;
+            font-size: 18px;
+        }
+    }
 }
 
 // availability-settings

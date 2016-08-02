@@ -1,15 +1,52 @@
 {% extends "includes/layout.html" %}
-{% block css %}
-    <link rel="stylesheet" href="/client/css/physician.css" />
+
+{% block pageTitle %}{{ physician.fullname }}{% endblock %}
+{% block header %}
+<div ng-app="Que" ng-controller="MainCtrl">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header pull-left">
+                <a class="navbar-brand" href="#">Que</a>
+            </div>
+            <div class="dropdown pull-right physician-nav">
+                <a class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <img ng-src="[[ physician.profile_pic ]]" />
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li ui-sref-active="active"><a ui-sref="home">Home</a></li>
+                    <li ui-sref-active="active"><a ui-sref="questions">Ask me a question</a></li>
+                    <li ui-sref-active="active"><a ui-sref="consultations">Book a video consultation</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% endblock %}
+
+    {% block content %}
+    <div ui-view class="mdl-layout__content mdl-color--grey-100"></div>
+
+</div>
 {% endblock %}
-{% block content %}
-<h1>{{ physician.fullname }}</h1>
-<p>{{ physician.email }}</p>
-<p>{{ physician.bio }}</p>
 
-
-{% endblock %}
-
-{% block js %}
-<script type="text/javascript" src="/static/js/physician.js"></script>
+{% block morejs %}
+<script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/angular/angular.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/angular-messages/angular-messages.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/angular-ui-router/release/angular-ui-router.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/underscore/underscore-min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/restangular/src/restangular.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/moment/moment.js') }}"></script>
+<script src="//developer.appear.in/scripts/appearin-sdk.0.0.4.min.js"></script>
+<script type="text/javascript" src="{{ url_for('assets.static', filename='js/third-party.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('assets.static', filename='js/client.js') }}"></script>
+<script type="text/javascript">
+    var physician = {
+        id: '{{ physician._id }}',
+        fullname: '{{ physician.fullname }}',
+        qualification: '{{ physician.qualification }}',
+        bio: '{{ physician.bio }}',
+        profile_pic: '{{ physician.profile_pic }}'
+    };
+</script>
 {% endblock %}

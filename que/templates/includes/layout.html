@@ -7,10 +7,6 @@
     <link rel="icon" href="{{ url_for('assets.static', filename='imgs/favicon.ico') }}">
     <title>Que | {% block pageTitle %}{% endblock %}</title>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.cyan-light_blue.min.css">
-
     {% block css %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('assets.static', filename='css/site.css') }}" />
     {% endblock %}

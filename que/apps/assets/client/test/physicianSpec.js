@@ -1,10 +1,18 @@
 describe("Que", function () {
-    var tester, $q;
+    var tester, $q, modals;
 
     beforeEach(function () {
         window.physician = {id: 1};
         tester = ngMidwayTester('QuePhysician');
         $q = tester.inject('$q');
+        modals = tester.inject('Modals');
+
+        var deferred = $q.defer();
+        spyOn(modals, 'loadingModal').and.returnValue(deferred.promise);
+        spyOn(modals, 'messageModal').and.returnValue(deferred.promise);
+        var modalDeferred = $q.defer();
+        deferred.resolve({closed: modalDeferred.promise, element: function (ev) {}});
+        modalDeferred.resolve();
     });
 
     afterEach(function() {
@@ -110,5 +118,43 @@ describe("Que", function () {
             expect(setting.repeat_weekly, false);
         });
 
+    });
+
+    describe('ProfileCtrl', function () {
+        var $scope, physicianService;
+
+        beforeEach(function () {
+            $scope = tester.rootScope().$new();
+            physicianService = tester.inject('Physicians');
+            tester.controller('ProfileCtrl', {$scope: $scope, Physicians: physicianService});
+            expect($scope.physician.id).toBe(1);
+        });
+
+        describe('$scope.saveProfile', function () {
+            var deferred;
+
+            beforeEach(function () {
+                deferred = $q.defer();
+                spyOn(physicianService, 'put').and.returnValue(deferred.promise);
+            });
+
+            it('should be successful', function () {
+                $scope.physician.fullname = 'Olajide Obasan';
+                var dataFromServer = angular.copy($scope.physician);
+                dataFromServer.fromServer = true;
+                deferred.resolve(dataFromServer);
+                $scope.saveProfile();
+                $scope.$apply();
+                expect($scope.physician.fromServer).toBe(true);
+            });
+
+            it('should fail', function () {
+                $scope.physician.bio = 'This is the goddamn bio';
+                deferred.reject({data: {message: 'Fail'}});
+                $scope.saveProfile();
+                $scope.$apply();
+                expect($scope.saveProfileErr).toBe('Fail');
+            });
+        });
     });
 });

@@ -1,79 +1,104 @@
 describe("Que", function () {
-    beforeEach(angular.mock.module('ngMaterial'));
-    beforeEach(angular.mock.module('ngMessages'));
-    beforeEach(angular.mock.module('ui.router'));
-    beforeEach(angular.mock.module('ngMdIcons'));
-    beforeEach(angular.mock.module('Que'));
+    var tester, $q, modals;
 
-    describe('MainCtrl', function () {
-        var $controller, $rootScope, $state;
+    beforeEach(function () {
+        window.physician = {id: 1};
+        tester = ngMidwayTester('Que');
+        $q = tester.inject('$q');
+        modals = tester.inject('Modals');
 
-        beforeEach(inject(function (_$controller_, _$rootScope_, _$state_) {
-            $controller = _$controller_;
-            $rootScope = _$rootScope_;
-            $state = _$state_;
-        }));
-
-        describe('$scope.pageTitle', function () {
-            var $scope, controller;
-
-            beforeEach(function () {
-                $scope = {};
-                controller = $controller('MainCtrl', { $scope: $scope, $rootScope: $rootScope, $state: $state});
-            });
-
-            it('sets the pageTitle to "current state data title" if title is found in toState.data.title',
-            function () {
-                var toState = {data: {title: 'Your Question'}},
-                    fromState = {name: ""};
-                $rootScope.$emit('$stateChangeSuccess', toState, undefined, fromState, undefined, undefined);
-                expect($scope.pageTitle).toEqual(toState.data.title);
-            });
-
-            it('sets the pageTitle to "Menu" if data title is not found',
-            function () {
-                var toState = {},
-                    fromState = {name: ""};
-                $rootScope.$emit('$stateChangeSuccess', toState, undefined, fromState, undefined, undefined);
-                expect($scope.pageTitle).toEqual("Menu");
-            });
-        });
+        var deferred = $q.defer();
+        spyOn(modals, 'loadingModal').and.returnValue(deferred.promise);
+        spyOn(modals, 'messageModal').and.returnValue(deferred.promise);
+        var modalDeferred = $q.defer();
+        deferred.resolve({closed: modalDeferred.promise, element: function (ev) {}});
+        modalDeferred.resolve();
     });
 
-    describe('QuestionsCtrl', function () {
-        var $controller, $questionService, httpBackend;
-
-        beforeEach(inject(function (_$controller_, _Questions_, $httpBackend) {
-            $controller = _$controller_;
-            $questionService = _Questions_;
-            httpBackend = $httpBackend;
-        }));
-
-        describe('$scope.askQuestion', function () {
-            var $scope, controller;
-
-            beforeEach(function () {
-                $scope = {};
-                $scope.question = {id: 'question-id', email: 'email@company.com', fullname: 'Joshua Ogunjobi',
-                                phone_number: '08092567971', question: 'This is the question'}
-                controller = $controller('QuestionsCtrl', {$scope: $scope, Questions: $questionService})
-            });
-
-            it('test posting question', function () {
-                respond_data = $scope.question;
-                respond_data.date_asked  = '2016-07-14 14:00:00';
-                respond_data.date_last_updated = '2016-07-14 14:00:00';
-                httpBackend.whenPOST('/questions').respond(respond_data);
-                $scope.askQuestion();
-            });
-        });
+    afterEach(function() {
+        tester.destroy();
+        tester = null;
     });
 
     describe('ConsultationsCtrl', function () {
-        var $controller;
+        var scope, availabilityService, videoConsultsService, deferred;
 
-        beforeEach(inject(function (_$controller_) {
-            $controller = _$controller_;
-        }));
+        beforeEach(function () {
+            scope = tester.rootScope().$new();
+            availabilityService = tester.inject('Availability');
+            videoConsultsService = tester.inject('VideoConsults');
+            tester.controller('ConsultationsCtrl', {$scope: scope, Availability: availabilityService,
+                                                    VideoConsults: videoConsultsService});
+            deferred = $q.defer();
+        });
+
+        afterEach(function () {
+            deferred = null;
+        });
+
+        describe('$scope.getAvailability', function () {
+            beforeEach(function () {
+                spyOn(availabilityService, 'getList').and.returnValue(deferred.promise);
+            });
+
+            it('should resolve', function () {
+                var serverResponse = [{'id': 1, 'day': 'monday', 'hours': [{'title': '09:00AM - 12:00PM', 'start_time': '',
+                                                                        'end_time': ''}], 'repeat_weekly': false}];
+                deferred.resolve(serverResponse);
+                scope.getAvailability();
+                scope.$apply();
+                expect(scope.availability).toBe(serverResponse);
+            });
+
+            it('should reject', function () {
+                var serverResponse = {'data': {'message': 'fail'}};
+                deferred.reject(serverResponse);
+                scope.getAvailability();
+                scope.$apply();
+                expect(scope.availabilityGetErr).toBe('fail');
+            });
+        });
     });
+
+    describe('QuestionCtrl', function () {
+        var scope, questionService, deferred, $stateService;
+        beforeEach(function () {
+            scope = tester.rootScope().$new();
+            questionService = tester.inject('Questions');
+            $stateService = tester.inject('$state');
+
+            deferred = $q.defer();
+            tester.controller('QuestionsCtrl', {$scope: scope, Questions: questionService, Modals: modals,
+                                               $state: $stateService});
+        });
+
+        afterEach(function () {
+            deferred = null;
+        });
+
+        describe('$scope.askQuestion', function () {
+            beforeEach(function () {
+                spyOn(questionService, 'post').and.returnValue(deferred.promise);
+            });
+
+            it('should resolve', function () {
+                scope.question = {'fullname': 'dauda sheu', 'phone_number': '08091607291', 'email': 'test@domain.com',
+                                  'question': 'this is it'};
+                var serverResponse = angular.copy(scope.question);
+                serverResponse.id = 1;
+                deferred.resolve(serverResponse);
+                scope.askQuestion();
+                scope.$apply();
+                expect(tester.path()).toEqual('/');
+            });
+
+            it('should reject', function () {
+                var serverResponse = {data: {message: 'fail'}};
+                deferred.resolve(serverResponse);
+                scope.askQuestion();
+                scope.$apply();
+            });
+        });
+    });
+
 });

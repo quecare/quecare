@@ -8,8 +8,8 @@ from que import flask_app, db
 
 
 class Physician(Document):
-    structure = {'fullname': unicode, 'email': unicode, 'password': str,
-                 'bio': unicode, 'date_created': datetime, 'date_last_updated': datetime}
+    structure = {'fullname': unicode, 'email': unicode, 'password': str, 'profile_pic': unicode,
+                 'qualification': unicode, 'bio': unicode, 'date_created': datetime, 'date_last_updated': datetime}
 
 
 class PhysicianCollection(Collection):

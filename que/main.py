@@ -5,6 +5,8 @@ import db
 from que import flask_app
 from apps import users, appointments, discussions, assets
 from apps.users.models import physicians
+from twilio import access_token
+from werkzeug.utils import redirect
 
 flask_app.register_blueprint(users.users_app)
 flask_app.register_blueprint(appointments.appointment_app)
@@ -35,6 +37,12 @@ def load_physician(username):
         return render_template('physician.html', physician=physician)
     else:
         return render_template('404.html'), 404
+
+
+@flask_app.route('/twilio-token')
+def twilio_token():
+    access_token.AccessToken(account_sid='AC422e668bb39d729d60db26ba8ca21a44',
+                             )
 
 
 if __name__ == '__main__':

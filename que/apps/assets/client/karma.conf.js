@@ -15,6 +15,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'bower_components/jquery/dist/jquery.min.js',
+      'bower_components/jquery-ui/jquery-ui.min.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/angular-animate/angular-animate.min.js',
@@ -23,6 +25,7 @@ module.exports = function(config) {
       'bower_components/underscore/underscore-min.js',
       'bower_components/restangular/src/restangular.js',
       'node_modules/ng-midway-tester/src/ngMidwayTester.js',
+      'js/third-party.js',
       'js/client.js',
       'js/physician.js',
       'test/*.js'

@@ -1,17 +1,22 @@
-<div class="mdl-grid" ng-init="getConsults()">
-    <div class="mdl-cell mdl-cell--2-col"></div>
-    <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--8-col">
-        <table class="mdl-data-table mdl-js-data-table">
-            <tbody>
-                <tr ng-repeat="consult in videoConsults">
-                    <td class="mdl-data-table__cell--non-numeric">[[ consult.fullname ]]</td>
-                    <td class="mdl-data-table__cell--non-numeric">[[ consult.email ]]</td>
-                    <td class="mdl-data-table__cell--non-numeric">[[ consult.date_chosen | date ]]</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="text-center mdl-cell mdl-cell--12-col">
-            <h4 ng-if="videoConsults.length == 0">No video appointments yet.</h4>
+<div class="container" ng-init="getConsults()">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <tbody>
+                        <tr ng-repeat="consult in videoConsults">
+                            <td>[[ consult.fullname ]]</td>
+                            <td>[[ consult.email ]]</td>
+                            <td>[[ consult.date_chosen | date ]]</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <h4 ng-if="videoConsults.length == 0">No video appointments yet.</h4>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

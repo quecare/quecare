@@ -1,7 +1,9 @@
 from flask import Blueprint, request, render_template, redirect, url_for, jsonify
 from flask_login import login_user, login_required, current_user, logout_user
 from passlib.apps import custom_app_context as pwd_context
+from flask_restful import Api
 
+import apis
 import forms
 from que import db, utils, background_tasks
 from que.apps.users.models import physicians
@@ -57,3 +59,7 @@ def dashboard():
 def logout():
     logout_user()
     return redirect(url_for('.login_physician'))
+
+
+users_api = Api(users_app)
+users_api.add_resource(apis.PhysicianApi, '/physicians/<string:physician_id>')

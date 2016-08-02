@@ -1,27 +1,38 @@
-<div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--2-col"></div>
-    <div class="mdl-cell mdl-cell--8-col">
-        <ui-view>
-            <div class="profile-pic-area">
-                <img id="filephoto" ng-src="[[ current_user.profile_pic ]]" alt="[[ current_user.fullname ]]" />
-                <input type="file" name="file" id="file" accept="image/*" class="manual-file-chooser"/>
-            </div>
-            <div class="mdl-color--white mdl-shadow--2dp">
-                <div class="settings-nav-area">
-                    <ul class="settings-nav mdl-list">
-                        <li class="mdl-list__item">
-                            <a ui-sref="settings.profile">
-                                <span class="mdl-list__item-primary-content">Profile</span>
-                            </a>
-                        </li>
-                        <li class="mdl-list__item">
-                            <a ui-sref="settings.password">
-                                <span class="mdl-list__item-primary-content">Password</span>
-                            </a>
-                        </li>
-                    </ul>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+            <ui-view>
+                <div class="profile-pic-area" upload>
+                    <form name="profilePicForm" action="/upload" method="POST" enctype="multipart/form-data"
+                          data-file-upload="options">
+                        <img id="filephoto" ng-src="[[ current_user.profile_pic ]]" alt="[[ current_user.fullname ]]" />
+                        <input type="file" name="file" id="file" accept="image/*" class="manual-file-chooser"/>
+                    </form>
                 </div>
-            </div>
-        </ui-view>
+                <div class="card">
+                    <div class="settings-nav-area">
+                        <ul class="settings-nav list-group">
+                            <li class="list-group-item">
+                                <a ui-sref="settings.profile">
+                                    <span class="pull-left">Profile</span>
+                                    <span class="pull-right">
+                                        <i class="fa fa-chevron-right"></i>
+                                    </span>
+                                    <div class="clearfix"></div>
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <a ui-sref="settings.password">
+                                    <span class="pull-left">Password</span>
+                                    <span class="pull-right">
+                                        <i class="fa fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </ui-view>
+        </div>
     </div>
 </div>

@@ -1,7 +1,13 @@
 queApp.controller('VideoCtrl', function ($scope, $stateParams) {
-    var AppearIn = window.AppearIn;
-    var appearin = new AppearIn();
-
-    var iframe = document.getElementById("video");
-    appearin.addRoomToIframe(iframe, $stateParams.roomName);
+    $scope.previewCamera = function () {
+        $scope.previewMedia = new Twilio.Conversations.LocalMedia();
+        Twilio.Conversations.getLocalMedia()
+        .then(function (mediaStream) {
+            $scope.$apply(function () {
+                $scope.previewMedia.addStream(mediaStream);
+            });
+        }).catch(function (error) {
+            console.log('Unable to access local media', error);
+        });
+    }
 });

@@ -1,19 +1,29 @@
-<div class="mdl-grid" ng-init="getQuestions()">
-    <div class="mdl-cell mdl-cell--2-col"></div>
-    <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--8-col mdl-grid">
-        <ul class="questions">
-            <li ng-repeat="question in questions" ng-click="viewDiscussion(ev, discussion)">
-                <p> [[ question.fullname ]] </p>
-                <p> [[ question.question ]] </p>
-                <p> [[ question.date_asked | date ]] </p>
-            </li>
-        </ul>
-        <div class="text-center mdl-cell mdl-cell--12-col">
-            <h4 ng-if="questionGetErr">[[ questionsGetErr ]]</h4>
-            <h4 ng-if="questions.length == 0">No questions for now.</h4>
-        </div>
-        <div class="progress-container text-center" ng-show="gettingDiscussions">
-            <i class="fa fa-spinner fa-spin fa-2x"></i>
+<ui-view>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="card">
+                    <div class="table-responsive">
+                        <table class="table table-hover questions">
+                            <tbody>
+                            <tr ng-repeat="question in questions" ng-click="viewQuestion(question)"
+                                ng-class="{'read': question.read}">
+                                <td>[[ question.fullname ]]</td>
+                                <td>[[ question.question | limitTo:50 ]]...</td>
+                                <td>[[ question.date_asked | date ]]</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-center">
+                        <h4 ng-if="questionGetErr">[[ questionsGetErr ]]</h4>
+                        <h4 ng-if="questions.length == 0">No questions for now.</h4>
+                    </div>
+                    <div class="progress-container text-center" ng-show="gettingDiscussions">
+                        <i class="fa fa-spinner fa-spin fa-2x"></i>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</ui-view>

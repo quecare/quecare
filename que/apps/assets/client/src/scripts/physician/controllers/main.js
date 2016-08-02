@@ -1,2 +1,3 @@
-quePhysicianApp.controller('MainCtrl', function ($scope, $rootScope) {
+quePhysicianApp.controller('MainCtrl', function ($scope, Physician) {
+    $scope.current_user = Physician;
 });

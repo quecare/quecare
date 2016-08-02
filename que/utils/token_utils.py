@@ -2,8 +2,8 @@ from itsdangerous import (TimedJSONWebSignatureSerializer as Serializer, BadSign
 from que import flask_app
 
 
-def generate_confirmation_token(unique_id):
-    serializer = Serializer(flask_app.config['SECRET_KEY'])
+def generate_confirmation_token(unique_id, expires_in=None):
+    serializer = Serializer(flask_app.config['SECRET_KEY'], expires_in=expires_in)
     return serializer.dumps(unique_id, salt=flask_app.config['SECURITY_PASSWORD_SALT'])
 
 

@@ -1,6 +1,9 @@
-var queApp = angular.module('Que', ['ngMaterial', 'ngMessages', 'ui.router', 'ngMdIcons', 'restangular']);
+var queApp = angular.module('Que', ['ngMessages', 'ui.router', 'restangular', 'globalServices', 'QueDirectives']);
 
-queApp.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
+queApp.config(function ($provide, $interpolateProvider, $stateProvider, $urlRouterProvider) {
+    var physician = angular.copy(window.physician);
+    $provide.constant('Physician', physician);
+
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
 
@@ -23,17 +26,17 @@ queApp.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider
                 title: 'Your Question'
             }
         })
+        .state('discussion', {
+            url: '/discussion/:discussionId',
+            templateUrl: buildUrl('discussion'),
+            controller: 'DiscussionCtrl'
+        })
         .state('consultations', {
             url: '/consultations',
             templateUrl: buildUrl('consultations'),
             controller: 'ConsultationsCtrl',
             data: {
                 title: 'New Consultation'
-            },
-            resolve: {
-                TodayTimes: function (Restangular) {
-                    return Restangular.one('availability').get();
-                }
             }
         })
         .state('video', {

@@ -20,21 +20,21 @@ gulp.task('styles', function () {
         .pipe(gulp.dest('css'))
 });
 
-function processScripts (dir) {
+function processScripts (filename, files) {
     return function () {
-        return gulp.src(['src/scripts/*.js', 'src/scripts/' + dir + '/**/*.js'])
+        return gulp.src(files)
     //        .pipe(jshint('.jshintrc'))
             .pipe(jshint.reporter('default'))
-            .pipe(concat(dir + '.js'))
+            .pipe(concat(filename + '.js'))
             .pipe(gulp.dest('js'))
             .pipe(rename({suffix: '.min'}))
             .pipe(uglify())
             .pipe(gulp.dest('js'))
     }
 }
-gulp.task('clientScripts', processScripts('client'));
-gulp.task('physicianScripts', processScripts('physician'));
-gulp.task('thirdPartyScripts', processScripts('third-party'));
+gulp.task('clientScripts', processScripts('client', ['src/scripts/*.js', 'src/scripts/client/**/*.js']));
+gulp.task('physicianScripts', processScripts('physician', ['src/scripts/*.js', 'src/scripts/physician/**/*.js']));
+gulp.task('thirdPartyScripts', processScripts('third-party', ['src/scripts/third-party/**/*.js']));
 
 gulp.task('test', function (done) {
   new Server({

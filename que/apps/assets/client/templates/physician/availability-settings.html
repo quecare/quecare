@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="alert alert-danger">
+        <div class="col-sm-6 col-sm-offset-3 col-md-8 col-md-offset-2">
+            <div class="alert alert-danger" ng-show="saveSettingError">
             	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             	<strong>Error!</strong> [[ saveSettingError ]]
             </div>
@@ -39,7 +39,7 @@
                                     <li class="list-group-item">
                                         <label for="repeatWeekly[[ $index ]]">
                                             Repeat weekly
-                                            <input type="checkbox" id="repeatWeekly[[ $index ]]" ng-checked=""
+                                            <input type="checkbox" id="repeatWeekly[[ $index ]]" ng-checked="setting.repeat_weekly"
                                                    ng-click="toggleRepeatWeekly(setting)" />
                                         </label>
                                     </li>

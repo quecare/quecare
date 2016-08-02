@@ -6,8 +6,8 @@ from mongokat import Document, Collection
 class Hours(Document):
     structure = {
         'title': unicode,
-        'start_time': datetime,
-        'end_time': datetime
+        'start_time': int,
+        'end_time': int
     }
 
 
@@ -18,6 +18,7 @@ class HoursCollection(Collection):
 class AvailabilitySettings(Document):
     structure = {
         'day': unicode,
+        'physician': unicode,
         'hours': list,
         'repeat_weekly': bool,
         'date_added': datetime,

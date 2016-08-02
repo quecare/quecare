@@ -1,14 +1,38 @@
 queApp.controller('ConsultationsCtrl',
-function($scope, VideoConsults, $mdDialog, TodayTimes, Availability, $mdDialog, $state) {
-    console.log(VideoConsults);
-
-    $scope.todayTime = TodayTimes;
+function($scope, VideoConsults, Availability, $state) {
     $scope.consultation = {};
+    $scope.currentDate = new Date();
+    $scope.currentDate.setMinutes(0);
+    $scope.currentDate.setSeconds(0);
 
-    var AppearIn = window.AppearIn;
-    var appearin = new AppearIn();
+    $scope.getAvailability = function () {
+        $scope.gettingAvailability = true;
+        Availability.getList()
+        .then(function (response) {
+            $scope.availability = response;
+            getAvailableTime();
+        }, function (response) {
+            $scope.availabilityGetErr = response.data.message;
+        }).finally(function () {
+            $scope.gettingAvailability = false;
+        });
+    };
 
-    $scope.todayTime.hours = _.sortBy($scope.todayTime.hours, 'start_time');
+    var weekday = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+    function getAvailableTime () {
+        var currentDate = new Date(), selectedDay;
+        currentDate.setMinutes(0);
+        currentDate.setSeconds(0);
+        var day = weekday[currentDate.getDay()]
+        $scope.currentDay = _.findWhere($scope.availability, {'day': day});
+        for (var i in $scope.currentDay.hours) {
+            var hour = $scope.currentDay.hours[i];
+            hour.start_time = new Date(currentDate.setHours(hour.start_time));
+            hour.end_time = new Date(currentDate.setHours(hour.end_time));
+        }
+    };
+
+//    $scope.todayTime.hours = _.sortBy($scope.todayTime.hours, 'start_time');
 
     $scope.addVideoConsults = function () {
         $scope.setting = true;
@@ -41,4 +65,6 @@ function($scope, VideoConsults, $mdDialog, TodayTimes, Availability, $mdDialog, 
             });
         });
     };
+
+    $scope.getAvailability();
 })

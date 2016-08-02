@@ -2,8 +2,10 @@ import unittest
 
 import simplejson as json
 
+import test_class_base
 from que.main import flask_app
 from que import db
+from que.apps.users.models import physicians
 
 
 class AppRoutesTestCases(unittest.TestCase):
@@ -53,3 +55,23 @@ class AppRoutesTestCases(unittest.TestCase):
         self.assertEqual(rv.status_code, 200)
         resp_data = json.loads(rv.data)
         self.assertIsNotNone(resp_data['token'])
+
+
+class PhysicianApiTestCases(test_class_base.TestClassBase):
+    def register_physician(self):
+        physician_data = {'fullname': 'Olajide Obasan', 'email': 'testmail@domain.com', 'password': 'newlife',
+                          'username': 'username', 'confirm_password': 'newlife'}
+        return self.app.post('/register', data=physician_data, follow_redirects=True)
+
+    def login_physician(self):
+        self.register_physician()
+        login_data = {'unique_id': 'username', 'password': 'newlife'}
+        return self.app.post('/login', data=login_data, follow_redirects=True)
+
+    def test_put_physician(self):
+        url = '/physicians/{}'.format(self.physician['_id'])
+        update_data = {'fullname': 'Bolaji Obasan'}
+        rv = self.app.put(url, data=json.dumps(update_data), headers=self.headers)
+        self.assertEqual(rv.status_code, 200)
+        resp_data = json.loads(rv.data)
+        self.assertEqual(resp_data['fullname'], update_data['fullname'])

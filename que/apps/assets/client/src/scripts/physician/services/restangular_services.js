@@ -1,4 +1,8 @@
-quePhysicianApp.factory('AvailabilitySettings', function (Restangular, Physician) {
+quePhysicianApp
+.factory('Physicians', function (Restangular, Physician) {
+    return _.extend(Restangular.one('physicians'), Physician);
+})
+.factory('AvailabilitySettings', function (Restangular, Physician) {
     return Restangular.service('availability-settings', Restangular.one('physicians', Physician.id));
 })
 .factory('Questions', function (Restangular, Physician) {

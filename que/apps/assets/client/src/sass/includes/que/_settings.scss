@@ -5,18 +5,32 @@
     height: 128px;
     border-radius: 50%;
     background-color: white;
+    padding: 3px;
+    position: relative;
+
+    img {
+        max-width: 100%;
+        border-radius: 50%;
+    }
 
     .manual-file-chooser {
         opacity: 0;
         height: 100%;
         width: 100%;
         border-radius: 50%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
     }
 }
 
 .settings-nav {
+    margin: 0;
+
     li {
-        border-bottom: 1px solid #ddd;
+        border-radius: 0;
+        border-left-color: transparent;
+        border-right-color: transparent;
 
         >a{
             display: inline-block;
@@ -25,11 +39,17 @@
         }
     }
 
+    li:first-of-type {
+        border-top-color: transparent;
+    }
     li:last-of-type {
         border-bottom-color: transparent;
     }
 }
 
-.que-content {
-    padding: 16px 32px;
+// profile page
+.profile-form {
+    h4 {
+        margin-bottom: 30px;
+    }
 }

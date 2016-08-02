@@ -1,5 +1,5 @@
-var quePhysicianApp = angular.module('QuePhysician', ['ngMessages', 'ui.router', 'restangular', 'QueDirectives']);
-
+var quePhysicianApp = angular.module('QuePhysician', ['ngMessages', 'ui.router', 'restangular', 'QueDirectives',
+                                     'globalServices', 'blueimp.fileupload']);
 
 quePhysicianApp.config(function ($provide, $interpolateProvider, $stateProvider, $urlRouterProvider, RestangularProvider) {
     var physician = angular.copy(window.physician);
@@ -18,7 +18,10 @@ quePhysicianApp.config(function ($provide, $interpolateProvider, $stateProvider,
         .state('discussions', {
             url: '/discussions',
             templateUrl: buildUrl('discussions'),
-            controller: 'DiscussionCtrl',
+            controller: 'DiscussionsCtrl',
+        })
+        .state('discussions.discussion', {
+            templateUrl: buildUrl('discussion'),
         })
         .state('videoConsults', {
             url: '/video-consults',
@@ -49,8 +52,8 @@ quePhysicianApp.config(function ($provide, $interpolateProvider, $stateProvider,
             controller: 'PasswordCtrl'
         })
         .state('video', {
-            url: '/video/:roomName',
-            templateUrl: '/static/templates/video.html',
+            url: '/video',
+            templateUrl: buildUrl('video'),
             controller: 'VideoCtrl'
         });
 

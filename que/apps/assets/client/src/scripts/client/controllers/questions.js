@@ -1,33 +1,29 @@
-queApp.controller('QuestionsCtrl', function ($scope, Questions, $state, $mdDialog) {
-    var alert;
+queApp.controller('QuestionsCtrl', function ($scope, Questions, Modals, $state) {
+    var messageHeading, message;
     $scope.askQuestion = function () {
-        $scope.asking = true;
-        Questions.post($scope.question)
-        .then(function (response) {
-             alert = $mdDialog.alert({
-                title: 'Question sent',
-                textContent: 'Your question has been sent. You would be notified when it has been answered.',
-                ok: 'Close'
-             });
-             $mdDialog
-             .show( alert )
-             .finally(function() {
-                alert = undefined;
-                $state.go('home');
-             });
-        }, function (reason) {
-            alert = $mdDialog.alert({
-                title: 'Error',
-                textContent: reason.data.message,
-                ok: 'Close'
+        Modals.loadingModal('Asking')
+        .then(function (modal) {
+            Questions.post($scope.question)
+            .then(function () {
+                messageHeading = 'Question sent';
+                message = 'Question sent to physician. A link has been sent to your mail for further discussion';
+            }, function (reason) {
+                messageHeading = 'Error';
+                message = reason.data.message;
+            }).finally(function () {
+                modal.scope.dismiss();
             });
-            $mdDialog
-            .show( alert )
-            .finally(function () {
-                alert = undefined;
+
+            modal.closed.then(function () {
+                var messageModal = Modals.messageModal(messageHeading, message);
+                if (messageHeading == 'Question sent') {
+                    messageModal.then(function (modal) {
+                        modal.closed.then(function () {
+                            $state.go('home');
+                        });
+                    });
+                }
             });
-        }).finally(function () {
-            $scope.asking = false;
         });
     };
 })

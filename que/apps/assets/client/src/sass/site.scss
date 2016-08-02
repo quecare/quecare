@@ -1,2 +1,277 @@
 @import 'includes/_globals';
+@import 'includes/que/site/_home';
+@import 'includes/que/site/_consultations';
+@import 'includes/que/_questions';
 
+
+html,
+body {
+  height: 100%;
+}
+body {
+    background-position: 78%;
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: #f1f1f1;
+    padding-top: 81px;
+    padding-bottom: 40px;
+}
+
+.navbar-default {
+    border-top: 2px solid $brand-primary;
+
+    .physician-nav {
+
+        img {
+            background-color: #efefef;
+            margin-top: 5px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid $brand-primary;
+        }
+    }
+}
+
+// index page
+
+$primary-color: rgb(0, 200, 255);
+
+* {
+    // outline: 1px solid red;
+}
+
+a,
+a:focus,
+a:hover {
+    color: white;
+}
+
+.btn-default,
+.btn-default:hover,
+.btn-default:focus {
+  color: #333;
+  text-shadow: none;
+  background-color: #fff;
+  border: 1px solid #fff;
+}
+
+@media (min-width: 768px) {
+    body {
+        background-position: 50% 50%;
+    }
+}
+.site-wrapper {
+  display: table;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+}
+.site-wrapper-inner {
+  display: table-cell;
+  vertical-align: top;
+}
+.cover-container {
+  margin-right: auto;
+  margin-left: auto;
+}
+ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+/* Padding for spacing */
+.inner {
+  padding: 20px;
+}
+
+
+/*
+ * Header
+ */
+.masthead-brand {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.masthead-nav > li {
+  display: inline-block;
+}
+.masthead-nav > li + li {
+  margin-left: 20px;
+}
+.masthead-nav > li > a {
+  padding-right: 0;
+  padding-left: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff; /* IE8 proofing */
+  color: rgba(255,255,255,.75);
+  border-bottom: 2px solid transparent;
+}
+.masthead-nav > li > a:hover,
+.masthead-nav > li > a:focus {
+  background-color: transparent;
+  border-bottom-color: #a9a9a9;
+  border-bottom-color: rgba(255,255,255,.25);
+}
+.masthead-nav > .active > a,
+.masthead-nav > .active > a:hover,
+.masthead-nav > .active > a:focus {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+.cover {
+  padding: 0px 20px 60px;
+}
+.cover .btn-lg {
+  padding: 10px 20px;
+  font-weight: bold;
+}
+
+
+.masthead {
+  position: relative;
+}
+.mastfoot {
+    background-color: #00C8FF;
+    font-size: 14px;
+    .inner {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    h5 {
+        font-family: LatoBold;
+    }
+}
+@media (min-width: 768px) {
+  .masthead {
+    position: fixed;
+    top: 0;
+  }
+  .mastfoot {
+    position: fixed;
+    bottom: 0;
+  }
+  .site-wrapper-inner {
+    vertical-align: middle;
+  }
+  .masthead,
+  .mastfoot,
+  .cover-container {
+    width: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  .masthead,
+  .mastfoot {
+    width: 100%;
+  }
+  .mastfoot {
+    .inner {
+      margin: 0 auto;
+    }
+  }
+}
+
+video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: translateX(-50%) translateY(-50%);
+    background-image: url('client/images/background.jpg') no-repeat;
+    background-size: cover;
+    transition: 1s opacity;
+}
+
+.contact-btn-container {
+
+}
+.contact-btn {
+    margin-top: 10px;
+    background-color: rgb(255, 228, 76);
+    border: 0;
+    font-size: 21px;
+}
+.contact-btn:hover,
+.contact-btn:focus,
+.contact-btn:active {
+    color: white;
+    border-radius: 0;
+    border-color: white;
+}
+.headline {
+    font-family: Sniglet;
+    font-size: 64px;
+}
+.subtext {
+    font-size: 28px;
+}
+.background-mask {
+    background-color: rgba(0, 200, 255, .6);
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -99;
+}
+
+.modal-content {
+    border-radius: 0;
+}
+#contactFormModal {
+    .modal-header {
+        border-bottom: 0;
+    }
+}
+
+#messageModal {
+    color: #000;
+}
+.submit-btn {
+    color: $primary-color;
+    border-color: $primary-color;
+    border-radius: 0;
+    background: transparent;
+}
+.error {
+    color: red;
+}
+@media(max-width: 768px) {
+    .modal-dialog {
+        margin: 0;
+    }
+}
+
+.links {
+    >li a {
+        padding: 3px 0 3px;
+        display: inline-block;
+        width: 100%;
+        text-decoration: none;
+    }
+}
+
+.copyright {
+    p {
+        margin-top: 20px;
+    }
+}
+@media (min-width: 992px) {
+    .copyright {
+        p {
+            margin-top: 120px;
+        }
+    }
+}
