@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+            <div class="card">
+                <div class="question-container">
+                    <p class="question">[[ question.question ]]</p>
+                    <div class="question-info">
+                        <p>
+                            by <strong>[[ question.fullname ]]</strong>
+                        </p>
+                        <p>
+                            <i class="fa fa-clock-o"></i>&nbsp;[[ question.date_asked | date ]]
+                        </p>
+                    </div>
+                </div>
+                <loading ng-show="gettingQuestion" class="text-center"></loading>
+            </div>
+            <div class="card responses-container">
+                <h4>Responses</h4>
+                <hr/>
+                <loading ng-show="gettingAnswers" class="text-center"></loading>
+                <div class="text-center" ng-show="answers.length == 0">
+                    <h4>No answers yet.</h4>
+                </div>
+                <ul class="list-group responses">
+                    <li class="list-group-item" ng-repeat="answer in question.answers">
+                        <div class="media">
+                        	<div class="media-left">
+                        		<img class="media-object" ng-src="[[ physician.profile_pic ]]"
+                                     alt="[[ physician.fullname ]]" ng-show="answer.entered_by == 'physician'">
+                                <div class="media-object" ng-show="answer.entered_by == 'client'"></div>
+                        	</div>
+                        	<div class="media-body">
+                                <h5>[[ physician.fullname || question.fullname ]]</h5>
+                                <div class="answer-info">
+                                    <p><i class="fa fa-clock-o"></i>&nbsp;[[ answer.date_answered | date ]]</p>
+                                </div>
+                        		<p>[[ answer.answer ]]</p>
+                        	</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="card answer-form-container">
+                <form name="responseForm">
+                    <div class="form-group">
+                        <label for="response">Response</label>
+                        <textarea class="form-control" id="response" ng-model="answer.answer" ng-required="true"></textarea>
+                    </div>
+                    <button ng-disabled="responseForm.$invalid" ng-click="sendAnswer()"
+                            class="btn btn-primary">Reply</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

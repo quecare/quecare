@@ -1,0 +1,14 @@
+.appointment-time-container {
+    .list-group-item {
+        border-radius: 0;
+        border-left-color: transparent;
+        border-right-color: transparent;
+        padding: 0;
+
+        >label {
+            padding: 10px 0px;
+            display: block;
+            width: 100%;
+        }
+    }
+}

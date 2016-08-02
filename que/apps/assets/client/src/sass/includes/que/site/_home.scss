@@ -1,0 +1,47 @@
+.profile-info-container{
+    margin-bottom: 32px;
+}
+
+.profile-pic-container {
+    .pic-wrapper {
+        padding: 5px;
+        background-color: #efefef;
+        width: 128px;
+        height: 128px;
+        border-radius: 50%;
+        margin: 0 auto 40px;
+
+        img {
+            max-width: 100%;
+            border-radius: 50%;
+        }
+    }
+}
+
+.physician-name-qualification {
+    margin-bottom: 16px;
+
+    .name {
+        font-size: 24px;
+        font-weight: 400;
+        margin-bottom: 5px;
+    }
+
+    .qualification {
+        font-size: 9px;
+        font-weight: bold;
+    }
+}
+
+.ask-question-btn-cont {
+    .md-button {
+    }
+
+    > .md-button {
+        margin-right: 0px;
+    }
+
+    .md-menu .md-button {
+        margin-left: 1px;
+    }
+}
