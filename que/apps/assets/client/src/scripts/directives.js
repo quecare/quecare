@@ -33,7 +33,7 @@ queDirectives
             if (host.indexOf('localhost') > -1) {
                 uploadUrl = '//' + host + ':8080/upload';
             } else {
-                uploadUrl = '//mychora-1344.appspot.com/upload';
+                uploadUrl = '//quecare-1383.appspot.com/upload';
             }
 
             var pattern = new RegExp('(\.|\/)(jpe?g|png)$'),
