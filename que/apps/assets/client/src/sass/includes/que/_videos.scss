@@ -1,0 +1,61 @@
+.video-container {
+    position: relative;
+    display: table;
+    width: 100%;
+    height: 100%;
+
+    .video-controls {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .video-section {
+        display: table-cell;
+        vertical-align: middle;
+        width: 100%;
+    }
+    .video-info-section {
+        position: absolute;
+        bottom: 40px;
+        left: 0;
+        width: 100%;
+    }
+    twilio-video#local-media {
+        position: absolute;
+        right: 15px;
+        bottom: 80px;
+        width: 100px;
+        height: 100px;
+
+        video {
+            width: 100%;
+        }
+    }
+    twilio-video#remote-media {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+
+        video {
+            height: inherit;
+            width: inherit;
+        }
+    }
+
+    .phone-btn {
+        display: inline-block;
+        padding: 13px;
+        background-color: green;
+        border-radius: 50%;
+        width: 64px;
+        height: 64px;
+        color: white;
+    }
+
+    .end-call-btn {
+        background-color: red;
+    }
+}
