@@ -10,7 +10,7 @@ twilioApp
     var videoConsult;
 
     $scope.clientConnected = false;
-    $scope.removeParticipant = null;
+    $scope.remoteParticipant = null;
 
     function getToken() {
         return tokenService.getToken(videoConsult.fullname)
@@ -145,6 +145,7 @@ twilioApp
 
         conversation.on('participantDisconnected', function (participant) {
             $scope.$apply(function () {
+                $scope.clientConnected = false
                 delete $scope.remoteParticipant;
             });
         });
@@ -153,6 +154,7 @@ twilioApp
             conversation.localMedia.stop();
             conversation.disconnect();
             activeConversation = null;
+            $scope.clientConnected = false;
         });
     }
 
@@ -169,15 +171,26 @@ twilioApp
     };
 
     $scope.call = function () {
+        var options = {};
+        $scope.previewCamera();
 
+        if ($scope.previewMedia) {
+            options.localMedia = $scope.previewMedia;
+        }
+
+        conversationsClient.inviteToConversation(videoConsult.fullname, options)
+        .then(conversationStarted, function (error) {
+            console.log(error);
+        });
     };
+
     physicianAppointmentService.getVideoConsult($stateParams.videoId)
     .then(function (response) {
-        videoConsult = response;
+        $scope.videoConsult = videoConsult = response;
         activate();
     }, function (reason) {
         console.log(reason);
-    })
+    });
 })
 .directive('twilioVideo', function () {
     return {

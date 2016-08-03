@@ -10,19 +10,19 @@
     body {
         background-color: #000;
         color: white;
+        padding-top: 51px;
+        padding-bottom: 0;
     }
 </style>
 
 <div class="video-container">
-    <twilio-video id="remote-media" media="remoteParticipant" class="embed-responsive"></twilio-video>
-    <twilio-video id="local-media" media="previewMedia" class="embed-responsive"></twilio-video>
-    <div class="video-controls text-center">
+    <twilio-video id="remote-media" media="remoteParticipant" ng-if="remoteParticipant"></twilio-video>
+    <twilio-video id="local-media" media="previewMedia"></twilio-video>
+    <div class="video-controls">
         <div class="container">
             <div class="col-md-12">
-                <div class="pull-right">
-                    <ul>
-                        <li><a href=""></a></li>
-                    </ul>
+                <div class="video-call-info">
+                    <span class="client-name">[[ videoConsult.fullname ]]</span>
                 </div>
             </div>
         </div>
@@ -36,10 +36,10 @@
     <div class="video-info-section text-center">
         <div class="container">
             <div class="col-md-12">
-                <a ng-click="call()" class="phone-btn call-btn" ng-show="!clientConnected">
+                <a ng-click="call()" class="phone-btn call-btn" ng-show="!clientConnected" title="Place call to [[ videoConsult.fullname ]]">
                     <i class="fa fa-phone fa-3x"></i>
                 </a>
-                <a href="#" ng-click="" class="phone-btn end-call-btn" ng-show="clientConnected">
+                <a ng-click="" class="phone-btn end-call-btn" ng-show="clientConnected">
                     <i class="fa fa-phone fa-3x"></i>
                 </a>
             </div>

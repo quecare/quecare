@@ -9,6 +9,14 @@
         position: absolute;
         top: 0;
         left: 0;
+
+        .video-call-info {
+            padding: 10px 0;
+
+            .client-name {
+                font-size: 18px;
+            }
+        }
     }
     .video-section {
         display: table-cell;
@@ -21,7 +29,7 @@
         left: 0;
         width: 100%;
     }
-    twilio-video#local-media {
+    #local-media {
         position: absolute;
         right: 15px;
         bottom: 80px;
@@ -30,9 +38,10 @@
 
         video {
             width: 100%;
+            position: absolute;
         }
     }
-    twilio-video#remote-media {
+    #remote-media {
         position: absolute;
         left: 0;
         bottom: 0;
@@ -42,6 +51,7 @@
         video {
             height: inherit;
             width: inherit;
+            position: absolute;
         }
     }
 

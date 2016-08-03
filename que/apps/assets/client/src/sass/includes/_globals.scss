@@ -67,6 +67,29 @@ ul {
     background-color: $brand-primary;
     color: white;
     border-color: #e8e8e8;
+
+    .navbar-nav > li {
+        > a {
+            color: white;
+        }
+
+        > a:hover,
+        > a:active {
+            color: white;
+        }
+    }
+
+    .navbar-nav > li.active {
+        > a,
+        > a:hover,
+        > a:active {
+            background-color: transparent;
+        }
+    }
+
+    .navbar-brand {
+        padding-top: 10px;
+    }
 }
 
 

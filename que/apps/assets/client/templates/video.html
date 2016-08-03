@@ -16,8 +16,8 @@
 </style>
 
 <div class="video-container">
-    <twilio-video id="remote-media" media="remoteParticipant" class="embed-responsive"></twilio-video>
-    <twilio-video id="local-media" media="previewMedia" class="embed-responsive"></twilio-video>
+    <twilio-video id="remote-media" media="remoteParticipant"></twilio-video>
+    <twilio-video id="local-media" media="previewMedia"></twilio-video>
     <div class="video-controls text-center">
         <div class="container">
             <div class="col-md-12">
@@ -44,7 +44,7 @@
                 <a ng-click="call()" class="phone-btn call-btn" ng-show="!clientConnected">
                     <i class="fa fa-phone fa-3x"></i>
                 </a>
-                <a href="#" ng-click="" class="phone-btn end-call-btn" ng-show="clientConnected">
+                <a ng-click="" class="phone-btn end-call-btn" ng-show="clientConnected">
                     <i class="fa fa-phone fa-3x"></i>
                 </a>
             </div>
