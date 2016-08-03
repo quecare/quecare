@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block header %}
-<div ng-app="QuePhysician" ng-controller="MainCtrl">
+<div id="main" ng-app="QuePhysician" ng-controller="MainCtrl">
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -58,7 +58,7 @@
     {% endblock %}
 
     {% block content %}
-    <div ui-view></div>
+    <div id="uiView" ui-view></div>
 </div>
 <i style="display: none;" id="_tA">{{ current_user.generate_auth_token() }}</i>
 {% endblock %}
@@ -71,10 +71,10 @@
 <script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/underscore/underscore-min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/restangular/src/restangular.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/moment/moment.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('assets.static', filename='js/physician.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('assets.static', filename='js/third-party.js') }}"></script>
 <script src="https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js"></script>
 <script src="https://media.twiliocdn.com/sdk/js/conversations/v0.13/twilio-conversations.min.js"></script>
-<script type="text/javascript" src="{{ url_for('assets.static', filename='js/physician.js') }}"></script>
 <script type="text/javascript">
     var physician = {
         id: '{{ current_user.id }}',

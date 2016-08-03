@@ -46,8 +46,8 @@ class AppointmentsApiTest(test_class_base.TestClassBase):
         setting = json.loads(self.get_availability_settings().data)['data'][0]
         self.put_availability_setting(setting['id'], {'hours': [str(hours[0])]})
         video_consult_data = {'fullname': 'Obasan Olajide', 'email': 'jideobs@gmail.com', 'phone_number': '08091607291',
-                              'appointment': str(setting['id']), 'hour': [str(hours[0])],
-                              'date_for': datetime.now().strftime('%Y-%m-%d %H:%M:%S'), 'room_name': 'test-name'}
+                              'appointment': str(setting['id']), 'hour': str(hours[0]),
+                              'date_for': datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
         url = '/physicians/%s/video-consults' % self.physician['_id']
         return self.app.post(url, data=json.dumps(video_consult_data), headers=self.headers)
 

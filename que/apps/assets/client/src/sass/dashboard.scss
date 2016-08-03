@@ -1,6 +1,7 @@
 @import 'includes/_globals';
 @import 'includes/que/_settings';
 @import 'includes/que/_questions';
+@import 'includes/que/_videos';
 
 body {
     padding-top: 81px;
@@ -20,7 +21,7 @@ body {
             width: 22px;
             height: 22px;
             border-radius: 50%;
-            border: 1px solid #00C8FF;
+            border: 1px solid white;
         }
     }
 

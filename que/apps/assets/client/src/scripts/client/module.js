@@ -1,4 +1,5 @@
-var queApp = angular.module('Que', ['ngMessages', 'ui.router', 'restangular', 'globalServices', 'QueDirectives']);
+var queApp = angular.module('Que', ['ngMessages', 'ui.router', 'restangular', 'globalServices', 'QueDirectives',
+                                    'TwilioApp']);
 
 queApp.config(function ($provide, $interpolateProvider, $stateProvider, $urlRouterProvider) {
     var physician = angular.copy(window.physician);
@@ -40,7 +41,7 @@ queApp.config(function ($provide, $interpolateProvider, $stateProvider, $urlRout
             }
         })
         .state('video', {
-            url: '/video/:roomName',
+            url: '/video/:videoId',
             templateUrl: buildUrl('video'),
             controller: 'VideoCtrl'
         })

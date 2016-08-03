@@ -64,7 +64,7 @@ target/
 
 bower_components
 .idea
-#venv
+venv
 node_modules
 css
 js

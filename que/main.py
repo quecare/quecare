@@ -1,12 +1,11 @@
-from flask import render_template
+from flask import render_template, jsonify, request
 from flask_login import LoginManager
 
 import db
 from que import flask_app
 from apps import users, appointments, discussions, assets
 from apps.users.models import physicians
-from twilio import access_token
-from werkzeug.utils import redirect
+from twilio.access_token import AccessToken, ConversationsGrant
 
 flask_app.register_blueprint(users.users_app)
 flask_app.register_blueprint(appointments.appointment_app)
@@ -26,6 +25,12 @@ def load_user(physician_id):
 
 @flask_app.route('/')
 def index():
+    domain = request.headers['host']
+    if domain == 'docadesanya.com':
+        physician_model = physicians.PhysicianCollection(db.mongo.Physicians)
+        physician = physician_model.find_one({'username': 'ade01'})
+        if physician:
+            return render_template('physician.html', physician=physician)
     return render_template('index.html')
 
 
@@ -39,10 +44,23 @@ def load_physician(username):
         return render_template('404.html'), 404
 
 
-@flask_app.route('/twilio-token')
-def twilio_token():
-    access_token.AccessToken(account_sid='AC422e668bb39d729d60db26ba8ca21a44',
-                             )
+@flask_app.route('/receive-event', methods=['POST'])
+def receive_event():
+    print request.json
+    return 'ok'
+
+
+@flask_app.route('/twilio-token/<string:name>')
+def twilio_token(name):
+    account_sid = 'ACf60ce38fa73542b8825e14c78259c009'
+    api_key = 'SK4d27b90a36307ff377b995a88e6bf701'
+    api_secret = 'hgA9nRO7dCapi8DzLV9DZpJgvm1hxlL9'
+    token = AccessToken(account_sid=account_sid, signing_key_sid=api_key, secret=api_secret)
+    token.identity = name
+    grant = ConversationsGrant()
+    grant.configuration_profile_sid = 'VSb199b7226ca07347d5fa4684831d67a4'
+    token.add_grant(grant)
+    return jsonify(identity=token.identity, token=token.to_jwt())
 
 
 if __name__ == '__main__':

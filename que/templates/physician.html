@@ -2,7 +2,7 @@
 
 {% block pageTitle %}{{ physician.fullname }}{% endblock %}
 {% block header %}
-<div ng-app="Que" ng-controller="MainCtrl">
+<div ng-app="Que" ng-controller="MainCtrl" id="main">
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header pull-left">
@@ -24,7 +24,7 @@
     {% endblock %}
 
     {% block content %}
-    <div ui-view class="mdl-layout__content mdl-color--grey-100"></div>
+    <div ui-view id="uiView"></div>
 
 </div>
 {% endblock %}
@@ -37,7 +37,8 @@
 <script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/underscore/underscore-min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/restangular/src/restangular.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/moment/moment.js') }}"></script>
-<script src="//developer.appear.in/scripts/appearin-sdk.0.0.4.min.js"></script>
+<script src="https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js"></script>
+<script src="https://media.twiliocdn.com/sdk/js/conversations/v0.13/twilio-conversations.min.js"></script>
 <script type="text/javascript" src="{{ url_for('assets.static', filename='js/third-party.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('assets.static', filename='js/client.js') }}"></script>
 <script type="text/javascript">

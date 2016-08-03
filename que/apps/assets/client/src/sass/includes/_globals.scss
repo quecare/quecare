@@ -64,9 +64,11 @@ ul {
 }
 
 .navbar-default {
-    background-color: white;
+    background-color: $brand-primary;
+    color: white;
     border-color: #e8e8e8;
 }
+
 
 .primary-color {
     color: $brand-primary;

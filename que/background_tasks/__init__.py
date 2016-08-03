@@ -3,7 +3,7 @@ from flask import render_template
 from flask_mail import Message
 
 from que import db, utils, flask_app, que_mail
-from que.apps.appointments.models import availability_settings
+from que import models
 
 
 def make_celery(app):
@@ -35,7 +35,7 @@ def send_mail(subject, recipients, html_body, text_body=None, sender='no-reply@m
 
 @que_celery.task()
 def create_availability_settings(physician_id):
-    availability_settings_model = availability_settings.AvailabilitySettingsCollection(
+    availability_settings_model = models.AvailabilitySettingsCollection(
         db.mongo.AvailabilitySettings)
 
     current_date = utils.get_date()
@@ -49,6 +49,14 @@ def create_availability_settings(physician_id):
 def send_client_discussion_info(fullname, client_email, discussion_url):
     subject = 'Your discussion link'
     mail_html = render_template('email-templates/discussions-template.html', discussion_url=discussion_url,
+                                fullname=fullname)
+    send_mail(subject=subject, recipients=[client_email], html_body=mail_html)
+
+
+@que_celery.task()
+def send_client_appointment_info(fullname, client_email, appointment_url):
+    subject = 'Your video appointment link'
+    mail_html = render_template('email-templates/discussions-template.html', discussion_url=appointment_url,
                                 fullname=fullname)
     send_mail(subject=subject, recipients=[client_email], html_body=mail_html)
 

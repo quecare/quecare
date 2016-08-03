@@ -1,15 +1,17 @@
 from datetime import datetime
 
+from flask import url_for
+from bson import ObjectId
 from flask_restful import fields, marshal_with, reqparse, Resource
 
-from que import db
-from que.utils import api_base, extra_fields
+from que import db, background_tasks
+from que.utils import api_base, extra_fields, token_utils
 from que.apps.appointments.models import video_consults
 
 video_consult_fields = {'id': extra_fields.ObjectIdStr(attribute='_id'), 'fullname': fields.String,
                         'email': fields.String, 'phone_number': fields.String, 'appointment': fields.String,
-                        'date_for': fields.DateTime, 'date_chosen': fields.DateTime, 'room_name': fields.String,
-                        'date_last_modified': fields.DateTime}
+                        'date_for': fields.DateTime, 'date_chosen': fields.DateTime,
+                        'physician': fields.String, 'date_last_modified': fields.DateTime}
 
 
 class VideoConsultsApi(api_base.ApiBase):
@@ -21,6 +23,12 @@ class VideoConsultsApi(api_base.ApiBase):
 
 class ClientsVideoConsultsApi(Resource):
     @marshal_with(video_consult_fields)
+    def get(self, consult_id):
+        video_consult_model = video_consults.VideoConsultsCollection(db.mongo.VideoConsults)
+        consult = video_consult_model.find_one({'_id': ObjectId(consult_id)})
+        return consult
+
+    @marshal_with(video_consult_fields)
     def post(self, physician_id):
         parser = reqparse.RequestParser()
         parser.add_argument('fullname', type=str, required=True)
@@ -29,11 +37,16 @@ class ClientsVideoConsultsApi(Resource):
         parser.add_argument('appointment', type=str, required=True)
         parser.add_argument('hour', type=str, required=True)
         parser.add_argument('date_for', type=str, required=True)
-        parser.add_argument('room_name', type=str, required=True)
         args = parser.parse_args()
         args['physician'] = physician_id
         args['date_for'] = datetime.strptime(args['date_for'], '%Y-%m-%d %H:%M:%S')
         video_consult_model = video_consults.VideoConsultsCollection(db.mongo.VideoConsults)
+
         args['date_chosen'] = args['date_last_modified'] = datetime.now()
         args['_id'] = video_consult_model.insert(args)
+
+        # token expires in 1 month.
+        token = token_utils.generate_confirmation_token(str(args['_id']), expires_in=2629743.83)
+        discussion_url = url_for('.handle_appointment', token=token, _external=True)
+        background_tasks.send_client_appointment_info.delay(args['fullname'], args['email'], discussion_url)
         return args

@@ -1,5 +1,5 @@
 queApp.controller('ConsultationsCtrl',
-function($scope, VideoConsults, Availability, $state) {
+function($scope, VideoConsults, Availability, $state, Modals) {
     $scope.consultation = {};
     $scope.currentDate = new Date();
     $scope.currentDate.setMinutes(0);
@@ -35,33 +35,31 @@ function($scope, VideoConsults, Availability, $state) {
 //    $scope.todayTime.hours = _.sortBy($scope.todayTime.hours, 'start_time');
 
     $scope.addVideoConsults = function () {
-        $scope.setting = true;
-        appearin.getRandomRoomName().then(function (roomName) {
-            $scope.consultation.room_name = roomName;
-            $scope.consultation.appointment = $scope.todayTime.id;
+        var heading, message;
+        Modals.loadingModal('Setting appointment').then(function (modal) {
+            $scope.consultation.appointment = $scope.currentDay.id;
             $scope.consultation.date_for = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
             VideoConsults.post($scope.consultation)
             .then(function (response) {
-                $mdDialog.show(
-                    $mdDialog.alert({
-                        title: 'Appointment set',
-                        textContent: 'Appointment has been set, a url for your video' +
-                                     'consultation has been sent to your email',
-                        ok: 'Close'
-                    })
-                ).then(function () {
-                    $state.go('home');
-                })
+                heading = 'Appointment set';
+                message = 'Appointment has been set, a url for your video' +
+                          'consultation has been sent to your email';
             }, function (reason) {
-                $mdDialog.show(
-                    $mdDialog.alert({
-                        title: 'Error',
-                        textContent: reason.data.message,
-                        ok: 'Close'
-                    })
-                );
+                heading = 'Error';
+                message = reason.data.message;
             }).finally(function () {
-                $scope.setting = false;
+                modal.scope.dismiss();
+            });
+
+            modal.closed.then(function () {
+                Modals.messageModal(heading, message)
+                .then(function (modal) {
+                    if (heading != 'Error') {
+                        modal.closed.then(function () {
+                            $state.go('home');
+                        });
+                    }
+                });
             });
         });
     };

@@ -1,5 +1,5 @@
 var quePhysicianApp = angular.module('QuePhysician', ['ngMessages', 'ui.router', 'restangular', 'QueDirectives',
-                                     'globalServices', 'blueimp.fileupload']);
+                                     'globalServices', 'blueimp.fileupload', 'TwilioApp']);
 
 quePhysicianApp.config(function ($provide, $interpolateProvider, $stateProvider, $urlRouterProvider, RestangularProvider) {
     var physician = angular.copy(window.physician);
@@ -52,10 +52,11 @@ quePhysicianApp.config(function ($provide, $interpolateProvider, $stateProvider,
             controller: 'PasswordCtrl'
         })
         .state('video', {
-            url: '/video',
+            url: '/video/:videoId',
             templateUrl: buildUrl('video'),
-            controller: 'VideoCtrl'
+            controller: 'PhysicianVideoCtrl'
         });
+
 
     var tokenEle = document.getElementById('_tA')
     RestangularProvider.setDefaultHeaders({'auth-token': tokenEle && tokenEle.innerHTML});

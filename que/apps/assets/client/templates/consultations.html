@@ -32,7 +32,8 @@
                                     <span class="pull-left">[[ time.start_time | date ]]</span>
                                     <span>[[ time.title ]]</span>
                                     <input type="radio" id="[[ time.title ]]" name="options" class="pull-right"
-                                           ng-value="time.id" ng-disabled="time.start_time <= currentDate">
+                                           ng-model="consultation.hour" ng-value="time.id"
+                                           ng-disabled="time.start_time <= currentDate">
                                     <div class="clearfix"></div>
                                 </label>
                             </li>
