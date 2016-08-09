@@ -61,11 +61,14 @@
 
     {% block content %}
     <div id="uiView" ui-view></div>
+    {% include 'includes/video-call.html' %}
 </div>
 <i style="display: none;" id="_tA">{{ current_user.generate_auth_token() }}</i>
-{% endblock %}
+
+{% endblock content %}
 
 {% block morejs %}
+<script type="text/javascript" src="{{ url_for('assets.static', filename='js/twilio-video.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/angular/angular.min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('assets.static', filename='bower_components/angular-messages/angular-messages.min.js') }}"></script>
