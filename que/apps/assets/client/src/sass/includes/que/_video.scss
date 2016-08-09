@@ -1,0 +1,79 @@
+#video-call-modal {
+    * {
+        outline: 1px solid red;
+    }
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+
+    video {
+        width: 100%;
+        height: 100%;
+    }
+
+
+    #vid-remote-feed {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        top: 0;
+        width: 100%;
+    }
+
+    #vid-local-feed {
+        position: absolute;
+        bottom: 100px;
+        right: 15px;
+        height: 128px;
+        width: 128px;
+        border-radius: 5px;
+    }
+
+    .call-controls {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        width: 100%;
+
+        .controls {
+            text-align: center;
+            li {
+                display: inline-block;
+
+                >a {
+                    display: inline-block;
+                    padding: 17px 10px;
+                    width: 64px;
+                    height: 64px;
+                    border-radius: 50%;
+                    background-color: rgba(239, 239, 239, 0.31);
+                    color: white;
+                }
+
+                a.mute.active,
+                a.video-toggle.active {
+                    background-color: white;
+                    color: black;
+                }
+
+                >a.pick-call {
+                    background-color: green;
+                    color: white;
+                }
+
+                >a.drop-call {
+                    background-color: red;
+                    color: white;
+                }
+            }
+
+            li+li {
+                margin-left: 50px;
+            }
+        }
+    }
+}
