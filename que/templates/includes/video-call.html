@@ -1,0 +1,71 @@
+<div>
+    <div class="modal fade" id="video-call-modal" ng-class="{in: call}">
+        <div class="video" id="vid-remote-feed"></div>
+        <div class="video" id="vid-local-feed"></div>
+        <div class="video-info"></div>
+        <div class="call-controls">
+            <ul class="controls">
+                <li>
+                    <a class="control mute" ng-click="toggleAudio()" ng-class="{active: isMuted}">
+                        <i class="fa fa-microphone-slash fa-2x" ng-show="isMuted"></i>
+                        <i class="fa fa-microphone fa-2x" ng-show="!isMuted"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="control drop-call" ng-click="dropCall()">
+                        <i class="fa fa-phone fa-2x"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="control video-toggle" ng-click="toggleVideo()" ng-class="{active: isPaused}">
+                        <i class="fa fa-video-camera fa-2x"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script type="text/ng-template" id="incoming-call-modal.html">
+        <div class="modal fade" id="incoming-call-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">[[ invite.from ]]</h4>
+                    </div>
+                    <div class="modal-body">
+                        Incoming call from [[ invite.from ]]
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="rejectCall()">
+                            Reject
+                        </button>
+                        <button type="button" class="btn btn-success" ng-click="pickCall()">
+                            Accept
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="outgoing-call-modal.html">
+        <div class="modal fade" id="outgoing-call-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body">
+                        Contacting...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+</div>
