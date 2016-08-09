@@ -64,6 +64,7 @@ ul {
 }
 
 .navbar-default {
+    height: 56px;
     background-color: $brand-primary;
     color: white;
     border: 0;
@@ -89,7 +90,7 @@ ul {
     }
 
     .navbar-brand {
-        padding-top: 10px;
+        padding-top: 15px;
     }
 }
 
