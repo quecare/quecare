@@ -1,4 +1,7 @@
-var gulp = require('gulp'),
+var fs = require('fs'),
+    path = require('path'),
+    process = require('process'),
+    gulp = require('gulp'),
     sass = require('gulp-ruby-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css'),
@@ -32,9 +35,6 @@ function processScripts (filename, files) {
             .pipe(gulp.dest('js'))
     }
 }
-gulp.task('clientScripts', processScripts('client', ['src/scripts/*.js', 'src/scripts/client/**/*.js']));
-gulp.task('physicianScripts', processScripts('physician', ['src/scripts/*.js', 'src/scripts/physician/**/*.js']));
-gulp.task('thirdPartyScripts', processScripts('third-party', ['src/scripts/third-party/**/*.js']));
 
 gulp.task('test', function (done) {
   new Server({
@@ -51,10 +51,47 @@ gulp.task('tdd', function (done) {
 
 gulp.task('process', function () {
     gulp.watch('src/sass/**/*.scss', ['styles']);
-    gulp.watch(['src/scripts/*.js', 'src/scripts/client/**/*.js'], ['clientScripts']);
-    gulp.watch(['src/scripts/*.js', 'src/scripts/physician/**/*.js'], ['physicianScripts']);
-    gulp.watch(['src/scripts/third-party/**/*.js'], ['thirdPartyScripts']);
+    gulp.watch(['src/scripts/*.js', 'src/scripts/client/**/*.js'], ['client']);
+    gulp.watch(['src/scripts/*.js', 'src/scripts/physician/**/*.js'], ['physician']);
+    gulp.watch(['src/scripts/third-party/**/*.js'], ['third-party']);
+    gulp.watch(['src/scripts/twilio-video/**/*.js'], ['twilio-video']);
+    gulp.watch(['src/scripts/video/**/*.js'], ['video']);
     gulp.watch('test/**/*.js', ['tdd']);
 });
 
 gulp.task('default', ['process']);
+
+var rootPath = process.cwd();
+var scriptsFolder = 'src/scripts';
+
+/* scan scripts folder
+*  take directories as modules
+*  setup task for each module.
+*/
+fs.readdir(scriptsFolder, function (err, files) {
+    if (err) {
+        console.error('Error listing dir', error);
+        process.exit(1);
+    }
+
+    files.forEach(function (file, index) {
+        var fullFilename = path.join(rootPath, scriptsFolder, file);
+
+        fs.stat(fullFilename, function (error, stat) {
+            if (error) {
+                console.error('Error stating file', error);
+                return;
+            }
+
+            if (stat.isDirectory()) {
+                var filesToProcess = [fullFilename + '/**/*.js'];
+
+                // add other files required by client and physician modules.
+                if (file == 'client' || file == 'physician') {
+                    filesToProcess.push(scriptsFolder + '/*.js');
+                }
+                gulp.task(file, processScripts(file, filesToProcess));
+            }
+        });
+    });
+});
