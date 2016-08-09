@@ -1,5 +1,4 @@
-var queApp = angular.module('Que', ['ngMessages', 'ui.router', 'restangular', 'globalServices', 'QueDirectives',
-                                    'TwilioApp']);
+var queApp = angular.module('Que', ['ngMessages', 'ui.router', 'restangular', 'globalServices', 'QueDirectives']);
 
 queApp.config(function ($provide, $interpolateProvider, $stateProvider, $urlRouterProvider) {
     var physician = angular.copy(window.physician);
