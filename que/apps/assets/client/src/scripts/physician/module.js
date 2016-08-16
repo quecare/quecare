@@ -67,3 +67,12 @@ quePhysicianApp.config(function ($provide, $interpolateProvider, $stateProvider,
         return moment(dateValue).fromNow();
     }
 })
+.filter('range', function () {
+    return function (input) {
+        var out = [];
+        for (var i = input[0]; i <= input[1]; i++) {
+            out.push(i);
+        }
+        return out;
+    }
+})
