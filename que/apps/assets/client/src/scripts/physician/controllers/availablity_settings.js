@@ -30,7 +30,7 @@ function ($scope, Hours, AvailabilitySettings) {
 
         setting.put()
         .then(function (response) {
-            _.extend(setting, response);
+            setting = response;
         }, function (reason) {
             $scope.saveSettingError = reason.data.message;
         }).finally(function () {
@@ -54,7 +54,7 @@ function ($scope, Hours, AvailabilitySettings) {
     };
 
     $scope.toggleRepeatWeekly = function (setting) {
-        setting.repeat_weekly = !!setting.repeat_weekly;
+        setting.repeat_weekly = !setting.repeat_weekly;
         saveSetting(setting);
     };
 
