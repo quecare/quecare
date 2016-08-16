@@ -1,7 +1,7 @@
 quePhysicianApp.controller('AvailabilitySettingCtrl',
 function ($scope, Hours, AvailabilitySettings) {
     $scope.getHours = function () {
-        if ($scope.hours) return;
+        if ($scope.hours && $scope.hours.length > 0) return;
 
         $scope.gettingHours = true;
         Hours.getList()
@@ -54,7 +54,7 @@ function ($scope, Hours, AvailabilitySettings) {
     };
 
     $scope.toggleRepeatWeekly = function (setting) {
-        setting.repeat_weekly = !setting.repeat_weekly;
+        setting.repeat_weekly = !!setting.repeat_weekly;
         saveSetting(setting);
     };
 
