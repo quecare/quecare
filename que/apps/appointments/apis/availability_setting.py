@@ -12,8 +12,9 @@ availability_setting_fields = {'id': extra_fields.ObjectIdStr(attribute='_id'), 
                                'repeat_weekly': fields.Boolean(default=False),
                                'date_added': fields.DateTime, 'date_last_modified': fields.DateTime}
 
-hours_fields = {'id': extra_fields.ObjectIdStr(attribute='_id'), 'title': fields.String, 'start_time': fields.Integer,
-                'end_time': fields.Integer}
+hours_fields = {'id': extra_fields.ObjectIdStr(attribute='_id'), 'title': fields.String,
+                'start_time': fields.Nested({'hour': fields.Integer, 'minutes': fields.Integer}),
+                'end_time': fields.Nested({'hour': fields.Integer, 'minutes': fields.Integer})}
 
 hour_field = extra_fields.ObjectIdToData(db.mongo, 'Hours', ('id', 'title', 'start_time', 'end_time'))
 availability_fields = {'id': extra_fields.ObjectIdStr(attribute='_id'), 'day': fields.String,
