@@ -1,0 +1,92 @@
+{% extends "includes/layout.html" %}
+
+{% block pageTitle %}Dashboard{% endblock %}
+
+{% block css %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="static/css/dashboard.css" />
+{% endblock %}
+
+{% block header %}
+<div id="main" ng-app="QuePhysician" ng-controller="MainCtrl">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <img src="static/images/logo.png" width="64px"/>
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav app-nav">
+                    <li ui-sref-active="active">
+                        <a ui-sref="availabilitySettings">
+                            <i class="fa fa-cog"></i>Availability settings
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="discussions">
+                            <i class="fa fa-file-text-o"></i>Discussions
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="videoConsults">
+                            <i class="fa fa-video-camera"></i>Video consults
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown more-nav">
+                        <a class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <img ng-src="[[ current_user.profile_pic ]]" />
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li ui-sref-active="active"><a ui-sref="settings">Settings</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% endblock %}
+
+    {% block content %}
+    <div id="uiView" ui-view></div>
+    {% include 'includes/video-call.html' %}
+</div>
+<i style="display: none;" id="_tA">{{ current_user.generate_auth_token() }}</i>
+
+{% endblock content %}
+
+{% block morejs %}
+<script type="text/javascript" src="static/js/twilio-video.js"></script>
+<script type="text/javascript" src="static/bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="static/bower_components/angular/angular.min.js"></script>
+<script type="text/javascript" src="static/bower_components/angular-messages/angular-messages.min.js"></script>
+<script type="text/javascript" src="static/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script type="text/javascript" src="static/bower_components/underscore/underscore-min.js"></script>
+<script type="text/javascript" src="static/bower_components/restangular/src/restangular.js"></script>
+<script type="text/javascript" src="static/bower_components/moment/moment.js"></script>
+<script type="text/javascript" src="static/js/physician.js"></script>
+<script type="text/javascript" src="static/js/third-party.js"></script>
+<script src="https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js"></script>
+<script src="https://media.twiliocdn.com/sdk/js/conversations/v0.13/twilio-conversations.min.js"></script>
+<script type="text/javascript">
+    var physician = {
+        id: '{{ current_user.id }}',
+        username: '{{ current_user.username }}',
+        fullname: '{{ current_user.fullname }}',
+        profile_pic: '{{ current_user.profile_pic }}',
+        bio: '{{ current_user.bio }}'
+    };
+</script>
+{% endblock %}

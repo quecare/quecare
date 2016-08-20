@@ -2,8 +2,8 @@ import unittest
 
 import simplejson as json
 
-from que.main import flask_app
-from que import db
+from db import mongo
+from main import flask_app
 
 
 class TestClassBase(unittest.TestCase):
@@ -15,11 +15,11 @@ class TestClassBase(unittest.TestCase):
         token = json.loads(self.get_auth_token().data)['token']
         self.headers['auth-token'] = token
         with flask_app.app_context():
-            self.physician = db.mongo.Physicians.find_one({'email': 'testmail@domain.com'})
+            self.physician = mongo.db.Physicians.find_one({'email': 'testmail@domain.com'})
 
     def tearDown(self):
         with flask_app.app_context():
-            db.client.drop_database('que_test')
+            mongo.db.client.drop_database('que_test')
 
     def register_physician(self):
         physician_data = {'fullname': 'Olajide Obasan', 'email': 'testmail@domain.com', 'password': 'newlife',

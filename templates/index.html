@@ -1,0 +1,133 @@
+{% extends "includes/layout.html" %}
+{% block content %}
+<style>
+    body {
+        color: white;
+        background-image: url('static/images/background.jpg');
+    }
+</style>
+<div class="background-mask"></div>
+<div class="site-wrapper">
+    <div class="site-wrapper-inner">
+        <div class="cover-container">
+            <div class="masthead clearfix">
+                <div class="inner">
+                    <div class="masthead-brand">
+                        <a href="/">
+                            <img src="static/images/logo.png" width="100"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="inner cover">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h1 class="headline">Welcome to QueCare</h1>
+                        <h3 class="subtext">
+                            We believe communication design and simple<br />
+                            technology can solve complex health challenges
+                        </h3>
+                    </div>
+                    <div class="col-md-4">
+                        <h1 class="headline">&nbsp;</h1>
+                        <button type="button" class="btn contact-btn" data-toggle="modal" data-target="#contactFormModal">
+                            TALK TO US&nbsp;<i class="fa fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="mastfoot">
+                <div class="inner">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <h5>Links</h5>
+                            <ul class="links">
+                                <li>
+                                    <a href="https://www.facebook.com/quecare" target="_new">Facebook</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.twitter.com/que_care" target="_blank">Twitter</a>
+                                </li>
+                                <li>
+                                    <a href="" target="_blank">LinkedIn</a>
+                                </li>
+                                <li>
+                                    <a href="https://github.com/quecare" target="_blank">Github</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-8 copyright">
+                            <p>&copy; 2016 QueCare, All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="contactFormModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="color: rgb(144, 201, 85);">&times;</button>
+			</div>
+			<div class="modal-body">
+                <form id="contactForm" name="contactForm" method="post">
+                    <p class="error" id="msgEle"></p>
+                    <div class="form-group">
+                        <label for="name" class="sr-only">Name</label>
+                        <input type="text" id="name" name="contactName" class="form-control" value="" placeholder="NAME"
+                               required minlength="2"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="email" class="sr-only">Email</label>
+                                <input type="email" id="email" name="email" class="form-control" value="" placeholder="EMAIL" required/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="mobileNo" class="sr-only">Mobile No</label>
+                                <input type="tel" id="mobileNo" name="mobileNo" class="form-control" value="" placeholder="MOBILE NO" required
+                                       minlength="11" maxlength="11"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="yourMessage" class="sr-only">Your Message</label>
+                        <textarea id="yourMessage" name="yourMessage" class="form-control" placeholder="YOUR MESSAGE"
+                            rows="10" required></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn submit-btn" id="submit-btn">SUBMIT</button>
+                        <button type="submit" class="btn submit-btn hide" id="loading-btn">
+                            <i class="fa fa-spinner fa-2x"></i>
+                        </button>
+                    </div>
+                </form>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="messageModal" id="messageModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="color: rgb(144, 201, 85);">&times;</button>
+            </div>
+            <div class="modal-body">
+                Message sent
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <button type="button" class="btn submit-btn" data-dismiss="modal" aria-hidden="true">
+                    Ok
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

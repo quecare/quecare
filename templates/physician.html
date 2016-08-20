@@ -1,0 +1,55 @@
+{% extends "includes/layout.html" %}
+
+{% block pageTitle %}{{ physician.fullname }}{% endblock %}
+{% block header %}
+<div ng-app="Que" ng-controller="MainCtrl" id="main">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header pull-left">
+                <a class="navbar-brand" href="#">
+                    <img src="static/images/logo.png" width="64px" />
+                </a>
+            </div>
+            <div class="dropdown pull-right physician-nav">
+                <a class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <img ng-src="[[ physician.profile_pic ]]" />
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li ui-sref-active="active"><a ui-sref="home">Home</a></li>
+                    <li ui-sref-active="active"><a ui-sref="questions">Ask me a question</a></li>
+                    <li ui-sref-active="active"><a ui-sref="consultations">Book a video consultation</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% endblock %}
+
+    {% block content %}
+    <div ui-view id="uiView"></div>
+
+</div>
+{% endblock %}
+
+{% block morejs %}
+<script type="text/javascript" src="static/bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="static/bower_components/angular/angular.min.js"></script>
+<script type="text/javascript" src="static/bower_components/angular-messages/angular-messages.min.js"></script>
+<script type="text/javascript" src="static/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script type="text/javascript" src="static/bower_components/underscore/underscore-min.js"></script>
+<script type="text/javascript" src="static/bower_components/restangular/src/restangular.js"></script>
+<script type="text/javascript" src="static/bower_components/moment/moment.js"></script>
+<script src="https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js"></script>
+<script src="https://media.twiliocdn.com/sdk/js/conversations/v0.13/twilio-conversations.min.js"></script>
+<script type="text/javascript" src="static/js/third-party.js"></script>
+<script type="text/javascript" src="static/js/client.js"></script>
+<script type="text/javascript">
+    var physician = {
+        id: '{{ physician._id }}',
+        fullname: '{{ physician.fullname }}',
+        qualification: '{{ physician.qualification }}',
+        bio: '{{ physician.bio }}',
+        profile_pic: '{{ physician.profile_pic }}'
+    };
+</script>
+{% endblock %}

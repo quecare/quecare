@@ -3,9 +3,8 @@ import unittest
 import simplejson as json
 
 import test_class_base
-from que.main import flask_app
-from que import db
-from que.apps.users.models import physicians
+from main import flask_app
+from db import mongo
 
 
 class AppRoutesTestCases(unittest.TestCase):
@@ -14,7 +13,7 @@ class AppRoutesTestCases(unittest.TestCase):
 
     def tearDown(self):
         with flask_app.app_context():
-            db.client.drop_database('que_test')
+            mongo.db.client.drop_database('que_test')
 
     def test_register_get(self):
         rv = self.app.get('/register')

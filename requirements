@@ -1,6 +1,5 @@
 flask
 flask-restful
-mongokat
 flask-login
 Flask-WTF
 flask-socketio

@@ -2,7 +2,7 @@ from datetime import datetime
 
 from flask_restful import fields
 
-from que import utils
+import utils
 
 
 def test_generate_model_fields():
@@ -11,13 +11,3 @@ def test_generate_model_fields():
     model_fields = utils.generate_model_fields(model_structure)
 
     assert model_fields == expected_output
-
-
-def test_get_date():
-    import pytz
-
-    africa = pytz.timezone('Africa/Lagos')
-    aware_datetime = africa.localize(datetime.utcnow())
-    date = utils.get_date()
-
-    assert aware_datetime.hour is date.hour
